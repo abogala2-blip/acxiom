@@ -1,0 +1,77 @@
+﻿@model AcxiomCRM.Models.Customer
+
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<div class="crm-page-header">
+
+    <div>
+        <div class="eyebrow">CUSTOMER PROFILE</div>
+        <h1>@Model.FullName</h1>
+        <p>Customer details and ownership information.</p>
+    </div>
+
+</div>
+
+<div class="crm-card">
+
+    <div class="crm-profile-grid">
+
+        <div>
+            <span class="crm-label">Email</span>
+            <strong>@Model.Email</strong>
+        </div>
+
+        <div>
+            <span class="crm-label">Phone</span>
+            <strong>@Model.Phone</strong>
+        </div>
+
+        <div>
+            <span class="crm-label">Company</span>
+            <strong>@Model.Company</strong>
+        </div>
+
+        <div>
+            <span class="crm-label">City</span>
+            <strong>@Model.City</strong>
+        </div>
+
+        <div>
+            <span class="crm-label">Status</span>
+
+            <span class="crm-badge success">
+                @Model.Status
+            </span>
+        </div>
+
+        <div>
+            <span class="crm-label">Assigned To</span>
+            <strong>@Model.AssignedTo</strong>
+        </div>
+
+    </div>
+
+    <div class="crm-form-actions">
+
+        <a asp-action="Index"
+           class="crm-btn ghost">
+            ← Back
+        </a>
+
+        @if (
+            User.IsInRole("Admin") ||
+            User.IsInRole("Manager") ||
+            User.IsInRole("SalesExecutive"))
+        {
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="crm-btn warning">
+                Edit
+            </a>
+        }
+
+    </div>
+
+</div>

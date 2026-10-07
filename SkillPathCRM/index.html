@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SkillPath CRM — Customer Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg-color:#030014;--sidebar-bg:rgba(3,0,20,.95);--card-bg:rgba(255,255,255,.05);--card-border:rgba(255,255,255,.1);--text-main:#fff;--text-muted:#94a3b8;--accent-glow:rgba(139,92,246,.3);--primary:#8b5cf6;--secondary:#3b82f6;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--modal-overlay:rgba(0,0,0,.85);--blob-1:#7c3aed;--blob-2:#2563eb;--blob-3:#db2777;--nav-active:rgba(139,92,246,.15)}
+[data-theme=emerald]{--bg-color:#022c22;--sidebar-bg:rgba(6,78,59,.95);--card-bg:rgba(16,185,129,.05);--card-border:rgba(52,211,153,.2);--text-main:#ecfdf5;--text-muted:#6ee7b7;--primary:#10b981;--secondary:#34d399;--accent-glow:rgba(16,185,129,.4);--blob-1:#065f46;--blob-2:#047857;--blob-3:#064e3b;--nav-active:rgba(16,185,129,.15)}
+[data-theme=sunset]{--bg-color:#450a0a;--sidebar-bg:rgba(69,10,10,.95);--card-border:rgba(251,113,133,.2);--text-main:#fff1f2;--text-muted:#fda4af;--primary:#f43f5e;--secondary:#fb923c;--accent-glow:rgba(244,63,94,.4);--blob-1:#be123c;--blob-2:#c2410c;--blob-3:#9f1239;--nav-active:rgba(244,63,94,.15)}
+[data-theme=light]{--bg-color:#f8fafc;--sidebar-bg:#fff;--card-bg:#fff;--card-border:#e2e8f0;--text-main:#0f172a;--text-muted:#64748b;--primary:#2563eb;--secondary:#4f46e5;--accent-glow:rgba(37,99,235,.1);--modal-overlay:rgba(255,255,255,.8);--blob-1:#bfdbfe;--blob-2:#ddd6fe;--blob-3:#e0e7ff;--nav-active:rgba(37,99,235,.1)}
+*{box-sizing:border-box;transition:all .3s ease}
+body{margin:0;font-family:Inter,sans-serif;background:var(--bg-color);color:var(--text-main);height:100vh;overflow:hidden}
+.bg-mesh{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 15% 50%,var(--blob-1),transparent 50%),radial-gradient(circle at 85% 30%,var(--blob-2),transparent 50%),linear-gradient(180deg,var(--bg-color),var(--blob-3));filter:blur(60px);background-size:150% 150%;animation:gm 15s ease infinite}
+@keyframes gm{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.login-wrapper{display:flex;justify-content:center;align-items:center;height:100vh;position:absolute;inset:0;z-index:999;background:var(--bg-color)}
+.login-box{background:var(--card-bg);border:1px solid var(--card-border);padding:44px 40px;border-radius:24px;width:90%;max-width:430px;box-shadow:0 20px 50px rgba(0,0,0,.3);text-align:center;backdrop-filter:blur(20px);max-height:96vh;overflow:auto}
+.app{display:none;grid-template-columns:260px 1fr;height:100vh}.app.active-app{display:grid}
+aside{background:var(--sidebar-bg);border-right:1px solid var(--card-border);padding:24px 16px;display:flex;flex-direction:column;overflow-y:auto}
+main{padding:32px 48px;overflow-y:auto}
+.brand{font-family:Outfit,sans-serif;font-size:22px;font-weight:800;margin-bottom:24px}
+.nav-link{display:flex;gap:12px;padding:12px 14px;margin-bottom:6px;border-radius:12px;color:var(--text-muted);font-weight:500;font-size:14px;border:1px solid transparent;cursor:pointer}
+.nav-link:hover{background:var(--card-bg);color:var(--text-main)}.nav-link.active{background:var(--nav-active);border-color:var(--primary);color:var(--primary)}
+.card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:28px;margin-bottom:24px;overflow:auto}
+.grid-2{display:grid;grid-template-columns:1.5fr 1fr;gap:24px}.grid-4{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.btn{padding:11px 22px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;border:1px solid var(--card-border);background:var(--card-bg);color:var(--text-main);display:inline-flex;align-items:center;justify-content:center}
+.btn:hover{filter:brightness(1.15)}.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));border:none;color:#fff;box-shadow:0 4px 15px var(--accent-glow)}
+.btn-sm{padding:6px 12px;font-size:12px}
+.input-field,.login-input,select.input-field{width:100%;padding:13px;border-radius:10px;border:1px solid var(--card-border);background:rgba(128,128,128,.1);color:var(--text-main);font-size:1rem;outline:none;margin-bottom:14px;font-family:inherit}
+select.input-field option{background:var(--bg-color);color:var(--text-main)}
+.input-field:focus,.login-input:focus{border-color:var(--primary)}
+.input-field:disabled{opacity:.5;cursor:not-allowed}
+.error-msg,.info-msg{font-size:13px;margin-bottom:14px;display:none;padding:8px;border-radius:6px}
+.error-msg{color:var(--error);background:rgba(239,68,68,.1)}.info-msg{color:var(--success);background:rgba(16,185,129,.1)}
+.auth-toggle{margin-top:18px;font-size:14px;color:var(--text-muted)}.auth-toggle a{color:var(--primary);cursor:pointer;font-weight:600;margin-left:5px}
+.hide{display:none!important}
+.fade-in{animation:fi .5s ease forwards;opacity:0;transform:translateY(10px)}@keyframes fi{to{opacity:1;transform:none}}
+.tag{padding:4px 12px;border-radius:20px;background:var(--card-bg);border:1px solid var(--card-border);font-size:12px}
+.tag.ok{color:var(--success);border-color:var(--success)}.tag.no{color:var(--error);border-color:var(--error)}.tag.warn{color:var(--warning);border-color:var(--warning)}
+table{width:100%;border-collapse:collapse;font-size:14px}th{color:var(--text-muted);text-align:left;font-size:12px;text-transform:uppercase;padding:10px;border-bottom:1px solid var(--card-border)}
+td{padding:12px 10px;border-bottom:1px solid var(--card-border);vertical-align:top}
+.stat{font-family:Outfit;font-size:34px;font-weight:800;color:var(--primary)}
+.theme-panel{margin-top:16px;padding:15px 0;border-top:1px solid var(--card-border)}.theme-title{font-size:12px;color:var(--text-muted);margin-bottom:10px;font-weight:600;text-transform:uppercase}
+.theme-grid{display:flex;gap:10px;justify-content:center}.theme-btn{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid var(--card-border)}.theme-btn:hover{transform:scale(1.1)}.theme-btn.active{border-color:var(--text-main)}
+.progress-widget{background:var(--card-bg);border:1px solid var(--card-border);padding:15px;border-radius:12px;margin-top:auto;margin-bottom:14px;font-size:13px}
+.modal-overlay{position:fixed;inset:0;background:var(--modal-overlay);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal-content{background:var(--bg-color);border:1px solid var(--card-border);padding:32px;border-radius:24px;max-width:520px;width:92%;max-height:92vh;overflow:auto}
+label{font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+</style></head><body>
+<div class="bg-mesh"></div>
+
+<div id="login-view" class="login-wrapper"><div class="login-box fade-in">
+ <div class="brand" style="font-size:28px;margin-bottom:8px">SkillPath <span style="color:var(--primary)">CRM</span></div>
+ <h2 id="authTitle" style="margin:0 0 5px">Welcome back</h2>
+ <p style="font-size:14px;margin:0 0 20px;color:var(--text-muted)">Sign in to access your customer workspace.</p>
+ <div id="loginError" class="error-msg"></div>
+ <input id="fName" class="login-input hide" placeholder="Full name">
+ <input id="fUser" class="login-input" placeholder="Username or email">
+ <input id="fPass" type="password" class="login-input" placeholder="Password (anything works in demo)">
+ <button id="authBtn" class="btn btn-primary" style="width:100%" onclick="submitAuth()">Log In</button>
+ <div class="auth-toggle"><span id="toggleText">New customer?</span><a onclick="toggleMode()" id="toggleLink">Create account</a></div>
+ <div class="chips" style="justify-content:center" id="demoChips"></div>
+ <div class="theme-panel"><div class="theme-title">Theme</div><div class="theme-grid" id="loginThemes"></div></div>
+</div></div>
+
+<div id="app-view" class="app">
+ <aside>
+  <div class="brand">SkillPath <span style="color:var(--primary)">CRM</span></div>
+  <nav id="nav"></nav>
+  <div class="progress-widget"><b id="whoName"></b><div id="whoRole" style="color:var(--primary);font-weight:600;margin-top:4px"></div><div id="whoEmail" style="color:var(--text-muted);font-size:12px"></div></div>
+  <div class="theme-panel" style="margin-top:0"><div class="theme-title">Select Theme</div><div class="theme-grid" id="appThemes"></div></div>
+  <button class="btn" style="margin-top:10px;border-color:var(--error);color:var(--error)" onclick="logout()">Log Out</button>
+ </aside>
+ <main><div id="view" class="fade-in"></div></main>
+</div>
+
+<div id="modal" class="modal-overlay" onclick="if(event.target.id==='modal')closeModal()"><div class="modal-content" id="modalBody"></div></div>
+
+<script>
+const THEMES=[['default','#030014','Cosmic'],['emerald','#022c22','Emerald'],['sunset','#450a0a','Sunset'],['light','#f8fafc','Corporate Light']];
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+let me=null,customers=[],mode='login',page='overview';
+async function api(u,m='GET',b){const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'Request failed');return d}
+
+/* themes */
+function setTheme(t){document.body.setAttribute('data-theme',t);try{localStorage.setItem('sp-theme',t)}catch(e){}
+ document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.t===t))}
+function themeDots(){return THEMES.map(([k,c,n])=>`<div class="theme-btn" data-t="${k}" title="${n}" style="background:${c}" onclick="setTheme('${k}')"></div>`).join('')}
+$('loginThemes').innerHTML=themeDots();$('appThemes').innerHTML=themeDots();
+let saved='default';try{saved=localStorage.getItem('sp-theme')||'default'}catch(e){};setTheme(saved);
+
+/* auth */
+const DEMO=['admin','manager','sales1','support','priya'];
+$('demoChips').innerHTML='<div style="width:100%;font-size:12px;color:var(--text-muted)">Demo accounts (click):</div>'+DEMO.map(u=>`<span class="tag" style="cursor:pointer" onclick="fUser.value='${u}';fPass.value='demo'">${u}</span>`).join('');
+function toggleMode(){mode=mode==='login'?'signup':'login';const s=mode==='signup';
+ $('authTitle').innerText=s?'Create Customer Account':'Welcome back';$('authBtn').innerText=s?'Sign Up':'Log In';
+ $('fName').classList.toggle('hide',!s);$('fUser').placeholder=s?'Email address':'Username or email';
+ $('toggleText').innerText=s?'Have an account?':'New customer?';$('toggleLink').innerText=s?'Log in':'Create account';$('loginError').style.display='none'}
+async function submitAuth(){const e=$('loginError');e.style.display='none';
+ try{me=mode==='login'?await api('/api/login','POST',{username:fUser.value,password:fPass.value}):await api('/api/signup','POST',{name:fName.value,email:fUser.value,password:fPass.value});enter()}
+ catch(x){e.innerText=x.message;e.style.display='block'}}
+async function logout(){await api('/api/logout','POST').catch(()=>{});location.reload()}
+function enter(){$('login-view').classList.add('hide');$('app-view').classList.add('active-app');
+ $('whoName').innerText=me.name;$('whoRole').innerText=me.role;$('whoEmail').innerText=me.email;
+ const items=[['overview','📊 Overview'],['customers',me.role==='Customer'?'👤 My Record':'👥 Customers'],...(me.perms.users?[['users','🛡️ Users & Roles']]:[]),['access','🔐 Access Matrix']];
+ $('nav').innerHTML=items.map(([k,l])=>`<a class="nav-link" id="n-${k}" onclick="go('${k}')">${l}</a>`).join('');go('overview')}
+(async()=>{try{me=await api('/api/me');enter()}catch(e){}})();
+
+/* pages */
+async function go(p){page=p;document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));$('n-'+p)?.classList.add('active');
+ const v=$('view');v.classList.remove('fade-in');void v.offsetWidth;v.classList.add('fade-in');
+ try{if(p!=='access'&&p!=='users')customers=(await api('/api/customers')).customers;
+  ({overview,customers:custPage,users:usersPage,access:accessPage})[p]()}catch(e){v.innerHTML=`<div class="card" style="color:var(--error)">${esc(e.message)}</div>`}}
+
+function overview(){const has=f=>customers.length&&f in customers[0];
+ const act=customers.filter(c=>c.status==='Active').length;
+ const rev=has('revenue')?customers.reduce((s,c)=>s+(+c.revenue||0),0):null;
+ const scope={all:'all customers',assigned:'customers assigned to you',self:'your own record only'}[me.perms.scope];
+ $('view').innerHTML=`<div class="grid-2"><div class="card"><span style="font-size:12px;font-weight:800;color:var(--primary);letter-spacing:1px">CUSTOMER INTELLIGENCE</span>
+ <h1 style="margin:10px 0">Hello, ${esc(me.name.split(' ')[0])}.</h1><p style="color:var(--text-muted)">Signed in as <b>${esc(me.role)}</b>. You can see ${scope}.</p>
+ <div class="chips">${me.perms.create?'<span class="tag ok">Create</span>':'<span class="tag no">No create</span>'}<span class="tag ${me.perms.edit.length?'ok':'no'}">Edit: ${esc(me.perms.edit.join(', ')||'none')}</span>${me.perms.delete?'<span class="tag ok">Delete</span>':'<span class="tag no">No delete</span>'}</div></div>
+ <div class="card"><div class="stat">${customers.length}</div><div style="color:var(--text-muted)">Visible customers</div></div></div>
+ <div class="grid-4"><div class="card"><div class="stat">${act}</div><div style="color:var(--text-muted)">Active</div></div>
+ <div class="card"><div class="stat">${customers.length-act}</div><div style="color:var(--text-muted)">Lead / Churned</div></div>
+ <div class="card"><div class="stat">${rev===null?'🔒':'₹'+rev.toLocaleString('en-IN')}</div><div style="color:var(--text-muted)">Revenue ${rev===null?'(hidden for your role)':''}</div></div></div>`}
+
+function custPage(){const cols=me.perms.view.filter(f=>f!=='id');
+ $('view').innerHTML=`<div class="card"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+ <h3 style="margin:0">${me.role==='Customer'?'My Record':'Customers'}</h3><div style="display:flex;gap:10px">
+ <input id="q" class="input-field" style="margin:0;width:220px" placeholder="Search..." oninput="filterRows()">
+ ${me.perms.create?'<button class="btn btn-primary" onclick="openCust()">+ Add Customer</button>':''}</div></div>
+ <table><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}<th></th></tr></thead><tbody id="rows"></tbody></table>
+ <p style="color:var(--text-muted);font-size:12px">Hidden fields for your role: ${esc(['phone','email','revenue','taxId','owner','notes'].filter(f=>!me.perms.view.includes(f)).join(', ')||'none')}</p></div>`;filterRows()}
+function filterRows(){const q=($('q')?.value||'').toLowerCase(),cols=me.perms.view.filter(f=>f!=='id');
+ $('rows').innerHTML=customers.filter(c=>JSON.stringify(c).toLowerCase().includes(q)).map(c=>`<tr>${cols.map(f=>`<td>${f==='status'?`<span class="tag ${c.status==='Active'?'ok':c.status==='Lead'?'warn':'no'}">${esc(c.status)}</span>`:f==='revenue'?'₹'+Number(c.revenue).toLocaleString('en-IN'):esc(c[f])}</td>`).join('')}
+ <td style="white-space:nowrap">${me.perms.edit.length?`<button class="btn btn-sm" onclick="openCust(${c.id})">Edit</button> `:''}${me.perms.delete?`<button class="btn btn-sm" style="color:var(--error)" onclick="delCust(${c.id})">Delete</button>`:''}</td></tr>`).join('')||`<tr><td colspan="9" style="color:var(--text-muted)">No records visible.</td></tr>`}
+function openCust(id){const c=customers.find(x=>x.id===id)||{status:'Lead'};const isNew=!id;
+ const fields=me.perms.view.filter(f=>f!=='id');
+ $('modalBody').innerHTML=`<h3 style="margin-top:0">${isNew?'Add':'Edit'} customer</h3>`+fields.map(f=>{const ok=isNew?me.perms.edit.includes(f)&&!(f==='owner'&&me.perms.scope==='assigned'):me.perms.edit.includes(f);
+  const val=esc(c[f]??'');return `<label>${f}${ok?'':' 🔒 read-only'}</label>`+(f==='status'?`<select id="f_${f}" class="input-field" ${ok?'':'disabled'}>${['Lead','Active','Churned'].map(s=>`<option ${c.status===s?'selected':''}>${s}</option>`).join('')}</select>`
+  :f==='notes'?`<textarea id="f_${f}" class="input-field" ${ok?'':'disabled'}>${val}</textarea>`:`<input id="f_${f}" class="input-field" value="${val}" ${ok?'':'disabled'}>`)}).join('')+
+  `<div id="mErr" class="error-msg"></div><div style="display:flex;gap:10px"><button class="btn btn-primary" style="flex:1" onclick="saveCust(${id||0})">Save</button><button class="btn" onclick="closeModal()">Cancel</button></div>`;$('modal').classList.add('active')}
+async function saveCust(id){const body={};me.perms.view.forEach(f=>{const el=$('f_'+f);if(el&&!el.disabled)body[f]=el.value});
+ try{id?await api('/api/customers/'+id,'PUT',body):await api('/api/customers','POST',body);closeModal();go('customers')}catch(e){$('mErr').innerText=e.message;$('mErr').style.display='block'}}
+async function delCust(id){if(!confirm('Delete this customer?'))return;try{await api('/api/customers/'+id,'DELETE');go('customers')}catch(e){alert(e.message)}}
+function closeModal(){$('modal').classList.remove('active')}
+
+async function usersPage(){const {users}=await api('/api/users');const roles=Object.keys((await api('/api/matrix')));
+ $('view').innerHTML=`<div class="grid-2"><div class="card"><h3 style="margin-top:0">Users & Roles</h3><table><thead><tr><th>User</th><th>Email</th><th>Role</th></tr></thead><tbody>
+ ${users.map(u=>`<tr><td>${esc(u.name)}<div style="color:var(--text-muted);font-size:12px">@${esc(u.username)}</div></td><td>${esc(u.email)}</td><td>
+ <select class="input-field" style="margin:0;padding:8px" ${u.username===me.username?'disabled':''} onchange="setRole('${esc(u.username)}',this.value)">${roles.map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table></div>
+ <div class="card"><h3 style="margin-top:0">Create staff account</h3>
+ <input id="nuName" class="input-field" placeholder="Full name"><input id="nuUser" class="input-field" placeholder="Username"><input id="nuEmail" class="input-field" placeholder="Email">
+ <select id="nuRole" class="input-field">${roles.map(r=>`<option>${r}</option>`).join('')}</select><div id="uErr" class="error-msg"></div>
+ <button class="btn btn-primary" style="width:100%" onclick="addUser()">Create account</button><p style="color:var(--text-muted);font-size:12px">Demo mode: any password is accepted at login.</p></div></div>`}
+async function setRole(u,r){try{await api('/api/users/'+u,'PUT',{role:r})}catch(e){alert(e.message)}}
+async function addUser(){try{await api('/api/users','POST',{name:nuName.value,username:nuUser.value,email:nuEmail.value,role:nuRole.value});usersPage()}catch(e){uErr.innerText=e.message;uErr.style.display='block'}}
+
+async function accessPage(){const m=await api('/api/matrix');const f=['phone','email','revenue','taxId','notes'];
+ $('view').innerHTML=`<div class="card"><h3 style="margin-top:0">Access Matrix — what each role may see and do</h3><table><thead><tr><th>Role</th><th>Customer scope</th><th>Can view</th><th>Can edit</th><th>Create</th><th>Delete</th><th>Manage users</th></tr></thead><tbody>
+ ${Object.entries(m).map(([r,p])=>`<tr><td><b>${r}</b>${r===me.role?' <span class="tag ok">you</span>':''}</td><td>${{all:'All customers',assigned:'Only assigned',self:'Own record only'}[p.scope]}</td>
+ <td style="max-width:240px">${p.view.filter(x=>x!=='id').map(x=>`<span class="tag" style="margin:2px;display:inline-block">${x}</span>`).join('')}</td>
+ <td style="max-width:200px">${p.edit.map(x=>`<span class="tag ok" style="margin:2px;display:inline-block">${x}</span>`).join('')||'—'}</td>
+ <td>${p.create?'✅':'⛔'}</td><td>${p.delete?'✅':'⛔'}</td><td>${p.users?'✅':'⛔'}</td></tr>`).join('')}</tbody></table>
+ <p style="color:var(--text-muted);font-size:12px">These rules are enforced by the PowerShell server — hidden fields are never sent to the browser.</p></div>`}
+</script></body></html>

@@ -1,0 +1,84 @@
+@model AcxiomCRM.Models.AuditLog
+
+@{
+    ViewData["Title"] = "Audit Log Details";
+}
+
+<div class="container mt-4">
+
+    <h2>Audit Log Details</h2>
+
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-3">
+                    ID
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Id
+                </dd>
+
+                <dt class="col-sm-3">
+                    User
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.UserName
+                </dd>
+
+                <dt class="col-sm-3">
+                    Action
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Action
+                </dd>
+
+                <dt class="col-sm-3">
+                    Entity
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.EntityName
+                </dd>
+
+                <dt class="col-sm-3">
+                    Entity ID
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.EntityId
+                </dd>
+
+                <dt class="col-sm-3">
+                    Timestamp
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Timestamp.ToLocalTime()
+                </dd>
+
+                <dt class="col-sm-3">
+                    Details
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Model.Details
+                </dd>
+
+            </dl>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back to Audit Logs
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<AcxiomCRM.Controllers.RoleRow>
+
+@{
+    ViewData["Title"] = "Role Management";
+}
+
+<div class="crm-page-header">
+    <div>
+        <div class="eyebrow">ACXIOM CRM WORKSPACE</div>
+        <h1>Role Management</h1>
+        <p>Create roles and automatically generate a demo account.</p>
+    </div>
+</div>
+
+@if (TempData["RoleSuccess"] != null)
+{
+    <div class="crm-alert success">
+        @TempData["RoleSuccess"]
+    </div>
+}
+
+@if (TempData["RoleError"] != null)
+{
+    <div class="crm-alert danger">
+        @TempData["RoleError"]
+    </div>
+}
+
+<div class="crm-card">
+
+    <div class="crm-section-title">
+        Create New Role
+    </div>
+
+    <form asp-action="Create"
+          method="post"
+          class="crm-form-row">
+
+        @Html.AntiForgeryToken()
+
+        <input name="roleName"
+               class="crm-input"
+               placeholder="Example: SupportManager"
+               required />
+
+        <button class="crm-btn primary"
+                type="submit">
+            + Create Role
+        </button>
+    </form>
+
+    <div class="crm-help">
+        After creating a role, it automatically appears as a
+        selectable role on the Login page.
+    </div>
+
+</div>
+
+<div class="crm-card">
+
+    <div class="crm-section-title">
+        Existing Roles
+    </div>
+
+    <div class="crm-table-wrap">
+
+        <table class="crm-table">
+
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Users</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <span class="crm-badge primary">
+                            @item.Role
+                        </span>
+                    </td>
+
+                    <td>
+                        @item.Users
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

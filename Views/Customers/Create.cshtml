@@ -1,0 +1,116 @@
+﻿@model AcxiomCRM.Models.Customer
+
+@{
+    ViewData["Title"] = "Create Customer";
+}
+
+<div class="crm-page-header">
+
+    <div>
+        <div class="eyebrow">CUSTOMER MANAGEMENT</div>
+        <h1>Create Customer</h1>
+        <p>Add a new customer to your CRM workspace.</p>
+    </div>
+
+</div>
+
+<div class="crm-card crm-form-card">
+
+    <form asp-action="Create"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="crm-alert danger">
+        </div>
+
+        <div class="crm-form-grid">
+
+            <div class="crm-field">
+                <label asp-for="FullName">
+                    Full Name
+                </label>
+
+                <input asp-for="FullName"
+                       class="crm-input"
+                       placeholder="Enter customer name" />
+
+                <span asp-validation-for="FullName"></span>
+            </div>
+
+            <div class="crm-field">
+                <label asp-for="Email">
+                    Email
+                </label>
+
+                <input asp-for="Email"
+                       class="crm-input"
+                       placeholder="customer@example.com" />
+
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="crm-field">
+                <label asp-for="Phone">
+                    Phone
+                </label>
+
+                <input asp-for="Phone"
+                       class="crm-input"
+                       placeholder="+91 XXXXX XXXXX" />
+            </div>
+
+            <div class="crm-field">
+                <label asp-for="Company">
+                    Company
+                </label>
+
+                <input asp-for="Company"
+                       class="crm-input"
+                       placeholder="Company name" />
+            </div>
+
+            <div class="crm-field">
+                <label asp-for="City">
+                    City
+                </label>
+
+                <input asp-for="City"
+                       class="crm-input"
+                       placeholder="City" />
+            </div>
+
+            <div class="crm-field">
+                <label asp-for="Status">
+                    Status
+                </label>
+
+                <select asp-for="Status"
+                        class="crm-input">
+
+                    <option>Active</option>
+                    <option>Inactive</option>
+
+                </select>
+            </div>
+
+        </div>
+
+        <div class="crm-form-actions">
+
+            <button class="crm-btn primary"
+                    type="submit">
+                Create Customer
+            </button>
+
+            <a asp-action="Index"
+               class="crm-btn ghost">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>

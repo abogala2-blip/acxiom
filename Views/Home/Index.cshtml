@@ -1,0 +1,284 @@
+﻿@model AcxiomCRM.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="crm-page">
+
+    <div class="crm-hero">
+
+        <div>
+            <div class="crm-eyebrow">
+                ACXIOM CRM WORKSPACE
+            </div>
+
+            <h1>
+                Manage your customer
+                <br />
+                relationships smarter.
+            </h1>
+
+            <p>
+                Track customers, leads, opportunities and follow-ups
+                from one modern CRM workspace.
+            </p>
+
+            <div class="crm-actions">
+
+                <a asp-controller="Customers"
+                   asp-action="Create"
+                   class="crm-btn crm-btn-primary">
+                    <span>＋</span>
+                    Add Customer
+                </a>
+
+                <a asp-controller="Leads"
+                   asp-action="Create"
+                   class="crm-btn crm-btn-primary">
+                    <span>＋</span>
+                    Add Lead
+                </a>
+
+                <a asp-controller="Opportunities"
+                   asp-action="Create"
+                   class="crm-btn crm-btn-primary">
+                    <span>＋</span>
+                    New Opportunity
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="crm-stats">
+
+        <div class="crm-stat-card">
+            <div class="crm-stat-icon">♙</div>
+            <div>
+                <span>Customers</span>
+                <strong>@Model.CustomerCount</strong>
+            </div>
+        </div>
+
+        <div class="crm-stat-card">
+            <div class="crm-stat-icon">◎</div>
+            <div>
+                <span>Leads</span>
+                <strong>@Model.LeadCount</strong>
+            </div>
+        </div>
+
+        <div class="crm-stat-card">
+            <div class="crm-stat-icon">$</div>
+            <div>
+                <span>Opportunities</span>
+                <strong>@Model.OpportunityCount</strong>
+            </div>
+        </div>
+
+        <div class="crm-stat-card">
+            <div class="crm-stat-icon">✓</div>
+            <div>
+                <span>Follow-Ups</span>
+                <strong>@Model.FollowUpCount</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="crm-content-grid">
+
+        <div class="crm-panel">
+
+            <div class="crm-panel-header">
+                <div>
+                    <span class="crm-panel-label">CUSTOMERS</span>
+                    <h2>Recent Customers</h2>
+                </div>
+
+                <a asp-controller="Customers"
+                   asp-action="Index"
+                   class="crm-view-link">
+                    View all →
+                </a>
+            </div>
+
+            @if (Model.RecentCustomers.Count == 0)
+            {
+                <div class="crm-empty">
+                    No customers available.
+                </div>
+            }
+            else
+            {
+                <div class="crm-list">
+
+                    @foreach (var customer in Model.RecentCustomers)
+                    {
+                        <div class="crm-list-row">
+
+                            <div class="crm-avatar">
+                                @customer.FullName.Substring(
+                                    0,
+                                    Math.Min(1, customer.FullName.Length)
+                                ).ToUpper()
+                            </div>
+
+                            <div class="crm-list-info">
+                                <strong>@customer.FullName</strong>
+                                <span>@customer.Email</span>
+                            </div>
+
+                            <div class="crm-list-company">
+                                @customer.Company
+                            </div>
+
+                            <a asp-controller="Customers"
+                               asp-action="Details"
+                               asp-route-id="@customer.Id"
+                               class="crm-small-btn">
+                                View
+                            </a>
+
+                        </div>
+                    }
+
+                </div>
+            }
+
+        </div>
+
+
+        <div class="crm-panel">
+
+            <div class="crm-panel-header">
+                <div>
+                    <span class="crm-panel-label">SALES</span>
+                    <h2>Pipeline</h2>
+                </div>
+            </div>
+
+            <div class="pipeline-box">
+
+                <div class="pipeline-number">
+                    ₹@Model.PipelineValue.ToString("N0")
+                </div>
+
+                <div class="pipeline-label">
+                    Total opportunity value
+                </div>
+
+                <div class="pipeline-progress">
+                    <div></div>
+                </div>
+
+                <div class="pipeline-footer">
+                    <span>Active opportunities</span>
+                    <strong>@Model.OpportunityCount</strong>
+                </div>
+
+            </div>
+
+            <div class="quick-grid">
+
+                <a asp-controller="Customers"
+                   asp-action="Index"
+                   class="quick-card">
+                    <span>♙</span>
+                    <strong>Customers</strong>
+                    <small>Manage customer records</small>
+                </a>
+
+                <a asp-controller="Leads"
+                   asp-action="Index"
+                   class="quick-card">
+                    <span>◎</span>
+                    <strong>Leads</strong>
+                    <small>Track sales prospects</small>
+                </a>
+
+                <a asp-controller="FollowUps"
+                   asp-action="Index"
+                   class="quick-card">
+                    <span>✓</span>
+                    <strong>Follow-Ups</strong>
+                    <small>Stay on schedule</small>
+                </a>
+
+                <a asp-controller="Reports"
+                   asp-action="Index"
+                   class="quick-card">
+                    <span>◈</span>
+                    <strong>Reports</strong>
+                    <small>View CRM analytics</small>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="crm-panel crm-leads-panel">
+
+        <div class="crm-panel-header">
+
+            <div>
+                <span class="crm-panel-label">PROSPECTS</span>
+                <h2>Recent Leads</h2>
+            </div>
+
+            <a asp-controller="Leads"
+               asp-action="Index"
+               class="crm-view-link">
+                View all →
+            </a>
+
+        </div>
+
+        @if (Model.RecentLeads.Count == 0)
+        {
+            <div class="crm-empty">
+                No leads available.
+            </div>
+        }
+        else
+        {
+            <div class="crm-lead-grid">
+
+                @foreach (var lead in Model.RecentLeads)
+                {
+                    <div class="crm-lead-card">
+
+                        <div class="crm-lead-icon">
+                            ◎
+                        </div>
+
+                        <div>
+                            <strong>@lead.LeadName</strong>
+                            <span>@lead.Email</span>
+
+                            @if (!string.IsNullOrWhiteSpace(lead.CompanyName))
+                            {
+                                <small>@lead.CompanyName</small>
+                            }
+                        </div>
+
+                        <span class="crm-status">
+                            @lead.Status
+                        </span>
+
+                    </div>
+                }
+
+            </div>
+        }
+
+    </div>
+
+</div>

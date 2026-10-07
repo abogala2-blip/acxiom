@@ -1,0 +1,914 @@
+﻿/* =========================================================
+   ACXIOM CRM - GLOBAL GLASS UI
+   Visual-only stylesheet.
+   Does not change controllers, database or functionality.
+   ========================================================= */
+
+:root {
+    --crm-bg: #030014;
+    --crm-panel: rgba(18, 18, 42, 0.72);
+    --crm-panel-strong: rgba(24, 24, 52, 0.88);
+    --crm-border: rgba(255, 255, 255, 0.13);
+    --crm-border-hover: rgba(139, 92, 246, 0.55);
+
+    --crm-text: #f8fafc;
+    --crm-text-soft: #cbd5e1;
+    --crm-muted: #94a3b8;
+
+    --crm-purple: #8b5cf6;
+    --crm-purple-light: #a78bfa;
+    --crm-blue: #3b82f6;
+    --crm-pink: #ec4899;
+
+    --crm-success: #10b981;
+    --crm-warning: #f59e0b;
+    --crm-danger: #ef4444;
+    --crm-info: #38bdf8;
+
+    --crm-radius: 20px;
+    --crm-radius-small: 12px;
+
+    --crm-shadow:
+        0 20px 60px rgba(0,0,0,.28),
+        0 0 30px rgba(139,92,246,.08);
+}
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+html {
+    min-height: 100%;
+    background: var(--crm-bg);
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background:
+        radial-gradient(
+            circle at 75% 12%,
+            rgba(37,99,235,.35),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 52% 75%,
+            rgba(219,39,119,.24),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(124,58,237,.28),
+            transparent 32%
+        ),
+        #030014 !important;
+
+    color: var(--crm-text) !important;
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif !important;
+}
+
+/* Remove Bootstrap's light page backgrounds */
+
+main,
+.container,
+.container-fluid,
+.row {
+    color: var(--crm-text);
+}
+
+main {
+    background: transparent !important;
+}
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+p,
+span,
+label,
+small,
+div {
+    border-color: var(--crm-border);
+}
+
+.text-muted {
+    color: var(--crm-muted) !important;
+}
+
+.text-dark {
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   GLOBAL GLASS CARDS
+   ========================================================= */
+
+.card,
+.crm-card,
+.panel,
+.content-card,
+.dashboard-card,
+.info-card,
+.form-card,
+.table-card,
+.report-card,
+.activity-card,
+.pipeline-card,
+.stat-card {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.025)
+        ) !important;
+
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+
+    color: var(--crm-text) !important;
+
+    box-shadow: var(--crm-shadow) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+/* Any Bootstrap card header */
+
+.card-header {
+    background: rgba(255,255,255,.035) !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid var(--crm-border) !important;
+    border-radius: 20px 20px 0 0 !important;
+}
+
+/* Card body */
+
+.card-body {
+    background: transparent !important;
+    color: var(--crm-text) !important;
+}
+
+/* =========================================================
+   REMOVE WHITE BACKGROUNDS FROM COMMON BOOTSTRAP ELEMENTS
+   ========================================================= */
+
+.bg-white,
+.bg-light,
+.bg-body,
+.bg-body-secondary {
+    background:
+        rgba(15,15,35,.72) !important;
+
+    color: #ffffff !important;
+}
+
+.border {
+    border-color: var(--crm-border) !important;
+}
+
+/* =========================================================
+   FORMS - THIS FIXES THE WHITE BOXES
+   ========================================================= */
+
+.form-control,
+.form-select,
+textarea.form-control,
+input.form-control,
+select.form-select {
+    background:
+        rgba(7,8,25,.72) !important;
+
+    color: #f8fafc !important;
+
+    border: 1px solid rgba(255,255,255,.14) !important;
+
+    border-radius: 14px !important;
+
+    min-height: 54px;
+
+    padding: 12px 16px !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.025),
+        0 8px 25px rgba(0,0,0,.10) !important;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease !important;
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-control:hover,
+.form-select:hover,
+textarea:hover {
+    border-color: rgba(139,92,246,.35) !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus,
+input.form-control:focus {
+    background:
+        rgba(10,10,32,.90) !important;
+
+    color: #ffffff !important;
+
+    border-color:
+        rgba(139,92,246,.75) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(139,92,246,.13),
+        0 0 25px rgba(139,92,246,.10) !important;
+
+    outline: none !important;
+}
+
+/* Placeholder */
+
+.form-control::placeholder {
+    color: #64748b !important;
+    opacity: 1;
+}
+
+/* Select options */
+
+.form-select option,
+select option {
+    background: #111126 !important;
+    color: #ffffff !important;
+}
+
+/* Date/time fields */
+
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="number"] {
+    color-scheme: dark;
+}
+
+/* =========================================================
+   LABELS
+   ========================================================= */
+
+.form-label,
+label {
+    color: #e2e8f0 !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+}
+
+/* Validation */
+
+.field-validation-error,
+.text-danger,
+.validation-summary-errors {
+    color: #fb7185 !important;
+}
+
+.input-validation-error {
+    border-color: rgba(239,68,68,.75) !important;
+}
+
+/* =========================================================
+   TABLES - NO MORE WHITE TABLES
+   ========================================================= */
+
+.table {
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #f8fafc !important;
+
+    background: transparent !important;
+
+    color: #f8fafc !important;
+
+    border-color: var(--crm-border) !important;
+
+    margin-bottom: 0 !important;
+}
+
+.table-responsive {
+    background:
+        rgba(10,10,30,.55) !important;
+
+    border: 1px solid var(--crm-border) !important;
+
+    border-radius: 18px !important;
+
+    padding: 8px !important;
+
+    overflow-x: auto;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.20) !important;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+    border-bottom-color: rgba(255,255,255,.08) !important;
+    box-shadow: none !important;
+}
+
+.table thead,
+.table thead tr {
+    background:
+        rgba(139,92,246,.08) !important;
+}
+
+.table thead th {
+    background:
+        rgba(139,92,246,.08) !important;
+
+    color: #c4b5fd !important;
+
+    border-bottom:
+        1px solid rgba(139,92,246,.22) !important;
+
+    font-size: .78rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .07em;
+
+    font-weight: 700 !important;
+
+    padding: 15px 14px !important;
+}
+
+.table tbody td {
+    color: #dbeafe !important;
+    padding: 15px 14px !important;
+    vertical-align: middle;
+}
+
+.table tbody tr {
+    background: transparent !important;
+    transition: background .18s ease;
+}
+
+.table tbody tr:hover {
+    background:
+        rgba(139,92,246,.075) !important;
+}
+
+.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: transparent !important;
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    border-radius: 12px !important;
+
+    font-weight: 700 !important;
+
+    padding:
+        10px 18px !important;
+
+    border-width: 1px !important;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        background .18s ease !important;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Primary */
+
+.btn-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #6366f1
+        ) !important;
+
+    border-color:
+        rgba(139,92,246,.55) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 8px 25px rgba(99,102,241,.22) !important;
+}
+
+.btn-primary:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #9d6df8,
+            #6d70f5
+        ) !important;
+
+    box-shadow:
+        0 12px 30px rgba(99,102,241,.32) !important;
+}
+
+/* Success */
+
+.btn-success {
+    background:
+        linear-gradient(
+            135deg,
+            #10b981,
+            #059669
+        ) !important;
+
+    border-color: rgba(16,185,129,.5) !important;
+
+    color: #ffffff !important;
+}
+
+/* Warning */
+
+.btn-warning {
+    background:
+        rgba(245,158,11,.16) !important;
+
+    border-color:
+        rgba(245,158,11,.45) !important;
+
+    color: #fbbf24 !important;
+}
+
+/* Danger */
+
+.btn-danger {
+    background:
+        rgba(239,68,68,.14) !important;
+
+    border-color:
+        rgba(239,68,68,.45) !important;
+
+    color: #fb7185 !important;
+}
+
+/* Info */
+
+.btn-info {
+    background:
+        rgba(56,189,248,.14) !important;
+
+    border-color:
+        rgba(56,189,248,.40) !important;
+
+    color: #67e8f9 !important;
+}
+
+/* Secondary */
+
+.btn-secondary {
+    background:
+        rgba(255,255,255,.07) !important;
+
+    border-color:
+        rgba(255,255,255,.15) !important;
+
+    color: #e2e8f0 !important;
+}
+
+/* Outline */
+
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-dark,
+.btn-outline-light {
+    background:
+        rgba(255,255,255,.035) !important;
+
+    border-color:
+        rgba(139,92,246,.35) !important;
+
+    color:
+        #c4b5fd !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover,
+.btn-outline-dark:hover,
+.btn-outline-light:hover {
+    background:
+        rgba(139,92,246,.14) !important;
+
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.badge {
+    border-radius: 999px !important;
+    padding: 7px 11px !important;
+    font-weight: 700 !important;
+}
+
+.badge.bg-success {
+    background:
+        rgba(16,185,129,.16) !important;
+    color: #6ee7b7 !important;
+    border: 1px solid rgba(16,185,129,.25);
+}
+
+.badge.bg-danger {
+    background:
+        rgba(239,68,68,.16) !important;
+    color: #fda4af !important;
+    border: 1px solid rgba(239,68,68,.25);
+}
+
+.badge.bg-warning {
+    background:
+        rgba(245,158,11,.16) !important;
+    color: #fcd34d !important;
+    border: 1px solid rgba(245,158,11,.25);
+}
+
+.badge.bg-secondary {
+    background:
+        rgba(148,163,184,.14) !important;
+    color: #cbd5e1 !important;
+    border: 1px solid rgba(148,163,184,.20);
+}
+
+.badge.bg-primary {
+    background:
+        rgba(139,92,246,.16) !important;
+    color: #c4b5fd !important;
+    border: 1px solid rgba(139,92,246,.25);
+}
+
+/* =========================================================
+   ALERTS
+   ========================================================= */
+
+.alert {
+    border-radius: 14px !important;
+
+    background:
+        rgba(255,255,255,.05) !important;
+
+    color: #e2e8f0 !important;
+
+    border: 1px solid var(--crm-border) !important;
+}
+
+.alert-danger {
+    background: rgba(239,68,68,.10) !important;
+    color: #fecdd3 !important;
+    border-color: rgba(239,68,68,.25) !important;
+}
+
+.alert-success {
+    background: rgba(16,185,129,.10) !important;
+    color: #a7f3d0 !important;
+    border-color: rgba(16,185,129,.25) !important;
+}
+
+.alert-warning {
+    background: rgba(245,158,11,.10) !important;
+    color: #fde68a !important;
+    border-color: rgba(245,158,11,.25) !important;
+}
+
+.alert-info {
+    background: rgba(56,189,248,.10) !important;
+    color: #bae6fd !important;
+    border-color: rgba(56,189,248,.25) !important;
+}
+
+/* =========================================================
+   DROPDOWN / MODAL
+   ========================================================= */
+
+.dropdown-menu {
+    background:
+        rgba(15,15,38,.96) !important;
+
+    border:
+        1px solid var(--crm-border) !important;
+
+    border-radius: 15px !important;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.45) !important;
+
+    backdrop-filter: blur(18px);
+}
+
+.dropdown-item {
+    color: #cbd5e1 !important;
+    border-radius: 9px !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background:
+        rgba(139,92,246,.14) !important;
+
+    color: #ffffff !important;
+}
+
+.modal-content {
+    background:
+        rgba(15,15,38,.97) !important;
+
+    color: #ffffff !important;
+
+    border:
+        1px solid var(--crm-border) !important;
+
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.55) !important;
+}
+
+.modal-header,
+.modal-footer {
+    border-color:
+        var(--crm-border) !important;
+}
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.page-link {
+    background:
+        rgba(255,255,255,.04) !important;
+
+    color:
+        #c4b5fd !important;
+
+    border-color:
+        var(--crm-border) !important;
+}
+
+.page-link:hover {
+    background:
+        rgba(139,92,246,.14) !important;
+
+    color:
+        #ffffff !important;
+}
+
+.page-item.active .page-link {
+    background:
+        #8b5cf6 !important;
+
+    border-color:
+        #8b5cf6 !important;
+
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   SEARCH AREAS
+   ========================================================= */
+
+form.row,
+.search-form,
+.filter-form,
+.filters {
+    color: #ffffff;
+}
+
+form .form-control,
+form .form-select {
+    background:
+        rgba(7,8,25,.70) !important;
+}
+
+/* =========================================================
+   CONTENT SECTIONS
+   ========================================================= */
+
+.content-wrapper,
+.page-content,
+.main-content,
+.crm-content {
+    background: transparent !important;
+}
+
+/* =========================================================
+   COMMON CRUD PAGE STRUCTURE
+   ========================================================= */
+
+.container-fluid.py-4,
+.container.py-4 {
+    padding-top: 32px !important;
+    padding-bottom: 50px !important;
+}
+
+.container-fluid > .d-flex:first-child,
+.container > .d-flex:first-child {
+    margin-bottom: 24px;
+}
+
+/* =========================================================
+   FORM PAGE - LIKE YOUR 3RD IMAGE
+   ========================================================= */
+
+form:not(.navbar-form):not(.logout-form) {
+    color: #ffffff;
+}
+
+/* When form is directly inside a card */
+
+.card form {
+    background: transparent !important;
+}
+
+/* Form spacing */
+
+.mb-3 {
+    margin-bottom: 18px !important;
+}
+
+/* =========================================================
+   LIST PAGE HEADERS
+   ========================================================= */
+
+h2 {
+    font-size: 32px !important;
+    letter-spacing: -.02em;
+}
+
+h3 {
+    font-size: 25px !important;
+}
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+    color: #a78bfa;
+}
+
+a:hover {
+    color: #c4b5fd;
+}
+
+/* Don't make buttons look like normal links */
+
+a.btn {
+    text-decoration: none !important;
+}
+
+/* =========================================================
+   CHECKBOXES
+   ========================================================= */
+
+.form-check-input {
+    background-color:
+        rgba(7,8,25,.8) !important;
+
+    border-color:
+        rgba(255,255,255,.25) !important;
+}
+
+.form-check-input:checked {
+    background-color:
+        #8b5cf6 !important;
+
+    border-color:
+        #8b5cf6 !important;
+}
+
+/* =========================================================
+   HR
+   ========================================================= */
+
+hr {
+    border-color:
+        rgba(255,255,255,.10) !important;
+
+    opacity: 1 !important;
+}
+
+/* =========================================================
+   AUDIT LOG / REPORT / ACTIVITY TABLE WRAPPERS
+   ========================================================= */
+
+.audit-container,
+.report-container,
+.activity-container,
+.followup-container,
+.opportunity-container,
+.lead-container,
+.customer-container {
+    background:
+        rgba(10,10,30,.40) !important;
+
+    border-radius:
+        20px !important;
+}
+
+/* =========================================================
+   DASHBOARD KPI BOXES
+   ========================================================= */
+
+.kpi-card,
+.stat-card {
+    min-height: 125px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background:
+        rgba(3,0,20,.75);
+}
+
+::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            180deg,
+            #8b5cf6,
+            #4f46e5
+        );
+
+    border-radius: 999px;
+
+    border:
+        2px solid rgba(3,0,20,.75);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background:
+        #a78bfa;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 30px !important;
+    }
+
+    h2 {
+        font-size: 26px !important;
+    }
+
+    .card,
+    .crm-card,
+    .content-card {
+        border-radius: 16px !important;
+    }
+
+    .table-responsive {
+        border-radius: 14px !important;
+    }
+
+    .btn {
+        padding:
+            9px 13px !important;
+    }
+}

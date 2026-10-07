@@ -1,0 +1,200 @@
+﻿@model IEnumerable<AcxiomCRM.Models.Customer>
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<div class="crm-page-header">
+
+    <div>
+        <div class="eyebrow">ACXIOM CRM WORKSPACE</div>
+
+        <h1>Customers</h1>
+
+        <p>
+            Manage customer relationships and account information.
+        </p>
+    </div>
+
+    @if (
+        User.IsInRole("Admin") ||
+        User.IsInRole("Manager") ||
+        User.IsInRole("SalesExecutive"))
+    {
+        <a asp-action="Create"
+           class="crm-btn primary">
+            + Add Customer
+        </a>
+    }
+
+</div>
+
+<form asp-action="Index"
+      method="get"
+      class="crm-filter">
+
+    <div class="crm-search">
+
+        <span>⌕</span>
+
+        <input name="search"
+               value="@ViewBag.Search"
+               class="crm-input"
+               placeholder="Search customer, email, company..." />
+
+    </div>
+
+    <select name="status"
+            class="crm-input crm-select">
+
+        <option value="All">All Statuses</option>
+
+        <option value="Active"
+                selected="@(ViewBag.Status == "Active")">
+            Active
+        </option>
+
+        <option value="Inactive"
+                selected="@(ViewBag.Status == "Inactive")">
+            Inactive
+        </option>
+
+    </select>
+
+    <button type="submit"
+            class="crm-btn primary">
+        🔎 Search
+    </button>
+
+    <a asp-action="Index"
+       class="crm-btn ghost">
+        ↻ Clear
+    </a>
+
+</form>
+
+<div class="crm-card">
+
+    <div class="crm-results">
+        Showing @Model.Count() customer(s)
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="crm-empty">
+
+            <div class="crm-empty-icon">
+                👥
+            </div>
+
+            <h3>No customers found</h3>
+
+            <p>
+                Try changing your search or add a new customer.
+            </p>
+
+            @if (
+                User.IsInRole("Admin") ||
+                User.IsInRole("Manager") ||
+                User.IsInRole("SalesExecutive"))
+            {
+                <a asp-action="Create"
+                   class="crm-btn primary">
+                    + Add First Customer
+                </a>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="crm-table-wrap">
+
+            <table class="crm-table">
+
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Company</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Assigned To</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <strong>@item.FullName</strong>
+                        </td>
+
+                        <td>@item.Email</td>
+
+                        <td>@item.Phone</td>
+
+                        <td>@item.Company</td>
+
+                        <td>@item.City</td>
+
+                        <td>
+                            <span class="crm-badge
+                                @(item.Status == "Active"
+                                    ? "success"
+                                    : "muted")">
+                                @item.Status
+                            </span>
+                        </td>
+
+                        <td>
+                            @item.AssignedTo
+                        </td>
+
+                        <td class="crm-actions">
+
+                            <a asp-action="Details"
+                               asp-route-id="@item.Id"
+                               class="crm-btn info small">
+                                View
+                            </a>
+
+                            @if (
+                                User.IsInRole("Admin") ||
+                                User.IsInRole("Manager") ||
+                                User.IsInRole("SalesExecutive"))
+                            {
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="crm-btn warning small">
+                                    Edit
+                                </a>
+                            }
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.Id"
+                                   class="crm-btn danger small">
+                                    Delete
+                                </a>
+                            }
+
+                        </td>
+
+                    </tr>
+                }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+
+</div>

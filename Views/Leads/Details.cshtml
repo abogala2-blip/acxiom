@@ -1,0 +1,107 @@
+﻿@model AcxiomCRM.Models.Lead
+
+@{
+    ViewData["Title"] = "Lead Details";
+}
+
+<div>
+
+    <div class="crm-topbar">
+
+        <div>
+            <h1 style="margin:0;font-family:'Outfit';font-size:42px;">
+                Lead Details
+            </h1>
+
+            <div class="crm-muted">
+                View lead information.
+            </div>
+        </div>
+
+        <a asp-action="Index"
+           class="crm-btn crm-btn-secondary">
+            <i class="bi bi-arrow-left"></i>
+            Back
+        </a>
+
+    </div>
+
+    <div class="crm-card">
+
+        <div class="crm-form-grid">
+
+            <div class="crm-field">
+                <label>Name</label>
+                <div class="crm-input">@Model.LeadName</div>
+            </div>
+
+            <div class="crm-field">
+                <label>Email</label>
+                <div class="crm-input">@Model.Email</div>
+            </div>
+
+            <div class="crm-field">
+                <label>Phone</label>
+                <div class="crm-input">@Model.Phone</div>
+            </div>
+
+            <div class="crm-field">
+                <label>Company</label>
+                <div class="crm-input">@Model.CompanyName</div>
+            </div>
+
+            <div class="crm-field">
+                <label>Source</label>
+                <div class="crm-input">@Model.Source</div>
+            </div>
+
+            <div class="crm-field">
+                <label>Status</label>
+                <div class="crm-input">@Model.Status</div>
+            </div>
+
+            <div class="crm-field">
+                <label>Expected Value</label>
+                <div class="crm-input">
+                    ₹@Model.ExpectedValue.ToString("N2")
+                </div>
+            </div>
+
+            <div class="crm-field">
+                <label>Created</label>
+                <div class="crm-input">
+                    @Model.CreatedDate.ToLocalTime().ToString("dd MMM yyyy hh:mm tt")
+                </div>
+            </div>
+
+            <div class="crm-field full">
+                <label>Notes</label>
+                <div class="crm-input">
+                    @Model.Notes
+                </div>
+            </div>
+
+        </div>
+
+        <div style="margin-top:25px;display:flex;gap:10px;">
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="crm-btn"
+               style="background:var(--warning);color:#111827;">
+
+                <i class="bi bi-pencil"></i>
+                Edit
+
+            </a>
+
+            <a asp-action="Index"
+               class="crm-btn crm-btn-secondary">
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

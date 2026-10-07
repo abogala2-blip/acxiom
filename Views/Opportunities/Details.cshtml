@@ -1,0 +1,185 @@
+﻿@model AcxiomCRM.Models.Opportunity
+
+@{
+    ViewData["Title"] = "Opportunity Details";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+                Opportunity Details
+            </h2>
+
+            <p class="text-muted">
+                View complete opportunity information
+            </p>
+
+        </div>
+
+        <div>
+
+            <a href="/Opportunities"
+               class="btn btn-secondary">
+                Back
+            </a>
+
+            <a href="/Opportunities/Edit/@Model.Id"
+               class="crm-action crm-edit">
+                Edit
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        Opportunity Name
+                    </label>
+
+                    <h5>
+                        @Model.OpportunityName
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        Customer
+                    </label>
+
+                    <h5>
+                        @(Model.Customer?.FullName ?? "N/A")
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        Amount
+                    </label>
+
+                    <h5>
+                        ₹@Model.Amount.ToString("N2")
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        Stage
+                    </label>
+
+                    <h5>
+                        <span class="badge bg-info text-dark">
+                            @Model.Stage
+                        </span>
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        Probability
+                    </label>
+
+                    <h5>
+                        @Model.Probability%
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        Expected Close Date
+                    </label>
+
+                    <h5>
+                        @Model.ExpectedCloseDate.ToString("dd-MM-yyyy")
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        Status
+                    </label>
+
+                    <h5>
+
+                        @if (Model.Status == "Open")
+                        {
+                            <span class="badge bg-success">
+                                Open
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                @Model.Status
+                            </span>
+                        }
+
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        Assigned To
+                    </label>
+
+                    <h5>
+                        @(Model.AssignedTo ?? "Not Assigned")
+                    </h5>
+
+                </div>
+
+
+                <div class="col-12">
+
+                    <label class="text-muted">
+                        Notes
+                    </label>
+
+                    <div class="border rounded p-3 ">
+                        @(Model.Notes ?? "No notes available.")
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+

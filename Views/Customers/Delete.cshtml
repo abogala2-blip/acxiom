@@ -1,0 +1,55 @@
+﻿@model AcxiomCRM.Models.Customer
+
+@{
+    ViewData["Title"] = "Delete Customer";
+}
+
+<div class="crm-card danger-card">
+
+    <div class="crm-empty">
+
+        <div class="crm-empty-icon">
+            ⚠
+        </div>
+
+        <h2>Delete Customer?</h2>
+
+        <p>
+            You are about to permanently delete:
+        </p>
+
+        <strong>
+            @Model.FullName
+        </strong>
+
+        <p>
+            This action cannot be undone.
+        </p>
+
+        <form asp-action="Delete"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   asp-for="Id" />
+
+            <div class="crm-form-actions">
+
+                <button type="submit"
+                        class="crm-btn danger">
+                    Yes, Delete
+                </button>
+
+                <a asp-action="Index"
+                   class="crm-btn ghost">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

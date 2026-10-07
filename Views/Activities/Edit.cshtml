@@ -1,0 +1,247 @@
+﻿@model AcxiomCRM.Models.Activity
+
+@{
+    ViewData["Title"] = "Edit Activity";
+}
+
+<div class="container mt-4">
+
+    <h2>Edit Activity</h2>
+
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="Id" />
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <!-- Subject -->
+
+        <div class="mb-3">
+
+            <label asp-for="Subject"
+                   class="form-label">
+                Subject
+            </label>
+
+            <input asp-for="Subject"
+                   class="form-control" />
+
+            <span asp-validation-for="Subject"
+                  class="text-danger"></span>
+
+        </div>
+
+
+        <!-- Activity Type and Date -->
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+
+                <label asp-for="ActivityType"
+                       class="form-label">
+                    Activity Type
+                </label>
+
+                <select asp-for="ActivityType"
+                        class="form-select">
+
+                    <option value="Call">Call</option>
+
+                    <option value="Email">Email</option>
+
+                    <option value="Meeting">Meeting</option>
+
+                    <option value="Demo">Demo</option>
+
+                    <option value="Task">Task</option>
+
+                </select>
+
+                <span asp-validation-for="ActivityType"
+                      class="text-danger"></span>
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <label asp-for="ActivityDate"
+                       class="form-label">
+                    Activity Date
+                </label>
+
+                <input asp-for="ActivityDate"
+                       type="datetime-local"
+                       class="form-control" />
+
+                <span asp-validation-for="ActivityDate"
+                      class="text-danger"></span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Status -->
+
+        <div class="mb-3">
+
+            <label asp-for="Status"
+                   class="form-label">
+                Status
+            </label>
+
+            <select asp-for="Status"
+                    class="form-select">
+
+                <option value="Planned">Planned</option>
+
+                <option value="Completed">Completed</option>
+
+                <option value="Cancelled">Cancelled</option>
+
+            </select>
+
+            <span asp-validation-for="Status"
+                  class="text-danger"></span>
+
+        </div>
+
+
+        <!-- Customer -->
+
+        <div class="mb-3">
+
+            <label asp-for="CustomerId"
+                   class="form-label">
+                Customer
+            </label>
+
+            <select asp-for="CustomerId"
+                    class="form-select">
+
+                <option value="">
+                    -- Select Customer --
+                </option>
+
+                @foreach (var customer in ViewBag.Customers)
+                {
+                    <option value="@customer.Id">
+
+                        @customer.FullName
+
+                    </option>
+                }
+
+            </select>
+
+        </div>
+
+
+        <!-- Lead -->
+
+        <div class="mb-3">
+
+            <label asp-for="LeadId"
+                   class="form-label">
+                Lead
+            </label>
+
+            <select asp-for="LeadId"
+                    class="form-select">
+
+                <option value="">
+                    -- Select Lead --
+                </option>
+
+                @foreach (var lead in ViewBag.Leads)
+                {
+                    <option value="@lead.Id">
+
+                        @lead.LeadName
+
+                    </option>
+                }
+
+            </select>
+
+        </div>
+
+
+        <!-- Opportunity -->
+
+        <div class="mb-3">
+
+            <label asp-for="OpportunityId"
+                   class="form-label">
+                Opportunity
+            </label>
+
+            <select asp-for="OpportunityId"
+                    class="form-select">
+
+                <option value="">
+                    -- Select Opportunity --
+                </option>
+
+                @foreach (var opportunity in ViewBag.Opportunities)
+                {
+                    <option value="@opportunity.Id">
+
+                        @opportunity.OpportunityName
+
+                    </option>
+                }
+
+            </select>
+
+        </div>
+
+
+        <!-- Description -->
+
+        <div class="mb-3">
+
+            <label asp-for="Description"
+                   class="form-label">
+                Description
+            </label>
+
+            <textarea asp-for="Description"
+                      class="form-control"
+                      rows="5"></textarea>
+
+            <span asp-validation-for="Description"
+                  class="text-danger"></span>
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <button type="submit"
+                class="btn btn-primary">
+
+            Update Activity
+
+        </button>
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+
+            Cancel
+
+        </a>
+
+    </form>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<AcxiomCRM.Controllers.UserRow>
+
+@{
+    ViewData["Title"] = "User Accounts";
+}
+
+<div class="crm-page-header">
+
+    <div>
+        <div class="eyebrow">ACXIOM CRM WORKSPACE</div>
+        <h1>User Accounts</h1>
+        <p>Create accounts and assign them to CRM roles.</p>
+    </div>
+
+    <a asp-action="Create"
+       class="crm-btn primary">
+        + Create User
+    </a>
+
+</div>
+
+@if (TempData["UserSuccess"] != null)
+{
+    <div class="crm-alert success">
+        @TempData["UserSuccess"]
+    </div>
+}
+
+<form asp-action="Index"
+      method="get"
+      class="crm-filter">
+
+    <div class="crm-search">
+
+        <span>⌕</span>
+
+        <input name="search"
+               value="@ViewBag.Search"
+               class="crm-input"
+               placeholder="Search by name or email..." />
+
+    </div>
+
+    <button class="crm-btn primary">
+        Search
+    </button>
+
+    <a asp-action="Index"
+       class="crm-btn ghost">
+        Clear
+    </a>
+
+</form>
+
+<div class="crm-card">
+
+    <div class="crm-table-wrap">
+
+        <table class="crm-table">
+
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FullName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <span class="crm-badge primary">
+                            @user.Roles
+                        </span>
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

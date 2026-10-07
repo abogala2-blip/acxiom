@@ -1,0 +1,73 @@
+﻿@model AcxiomCRM.Models.Lead
+
+@{
+    ViewData["Title"] = "Convert Lead";
+}
+
+<div class="container mt-4">
+
+    <h2>Convert Lead</h2>
+
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+            <h5>@Model.LeadName</h5>
+
+            <p>
+                <strong>Email:</strong>
+                @Model.Email
+            </p>
+
+            <p>
+                <strong>Company:</strong>
+                @Model.CompanyName
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                @Model.Status
+            </p>
+
+        </div>
+
+    </div>
+
+    <form asp-action="ConvertToCustomer"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden"
+               name="id"
+               value="@Model.Id" />
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Opportunity Amount
+            </label>
+
+            <input type="number"
+                   name="opportunityAmount"
+                   class="form-control"
+                   min="1"
+                   step="0.01"
+                   required />
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-success">
+            Convert Lead
+        </button>
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+

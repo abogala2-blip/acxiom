@@ -1,0 +1,1262 @@
+﻿@model AcxiomCRM.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>AcxiomCRM - Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #030014;
+            --bg2: #07021d;
+            --panel: rgba(255,255,255,.055);
+            --panel2: rgba(255,255,255,.08);
+            --border: rgba(255,255,255,.12);
+
+            --text: #ffffff;
+            --muted: #94a3b8;
+
+            --primary: #8b5cf6;
+            --secondary: #3b82f6;
+            --pink: #ec4899;
+
+            --input: rgba(255,255,255,.07);
+            --shadow: rgba(139,92,246,.28);
+
+            --blob1: #7c3aed;
+            --blob2: #2563eb;
+            --blob3: #db2777;
+        }
+
+        /* PURPLE */
+        body[data-theme="purple"] {
+            --bg: #030014;
+            --bg2: #07021d;
+            --panel: rgba(255,255,255,.055);
+            --panel2: rgba(255,255,255,.08);
+            --border: rgba(255,255,255,.12);
+
+            --text: #ffffff;
+            --muted: #94a3b8;
+
+            --primary: #8b5cf6;
+            --secondary: #3b82f6;
+            --pink: #ec4899;
+
+            --input: rgba(255,255,255,.07);
+
+            --blob1: #7c3aed;
+            --blob2: #2563eb;
+            --blob3: #db2777;
+        }
+
+        /* EMERALD */
+        body[data-theme="emerald"] {
+            --bg: #00130f;
+            --bg2: #00251d;
+            --panel: rgba(16,185,129,.08);
+            --panel2: rgba(16,185,129,.13);
+            --border: rgba(16,185,129,.25);
+
+            --text: #f0fdf4;
+            --muted: #9ac7ba;
+
+            --primary: #10b981;
+            --secondary: #14b8a6;
+            --pink: #22c55e;
+
+            --input: rgba(16,185,129,.09);
+
+            --blob1: #047857;
+            --blob2: #0f766e;
+            --blob3: #16a34a;
+        }
+
+        /* SUNSET */
+        body[data-theme="sunset"] {
+            --bg: #170408;
+            --bg2: #25080e;
+            --panel: rgba(255,255,255,.065);
+            --panel2: rgba(255,255,255,.10);
+            --border: rgba(255,120,80,.22);
+
+            --text: #fff7ed;
+            --muted: #d6a79a;
+
+            --primary: #ff7a18;
+            --secondary: #ff3d81;
+            --pink: #f43f5e;
+
+            --input: rgba(255,255,255,.08);
+
+            --blob1: #f97316;
+            --blob2: #ef4444;
+            --blob3: #db2777;
+        }
+
+        /* LIGHT */
+        body[data-theme="light"] {
+            --bg: #f4f7fb;
+            --bg2: #ffffff;
+            --panel: rgba(255,255,255,.78);
+            --panel2: rgba(255,255,255,.92);
+            --border: rgba(15,23,42,.10);
+
+            --text: #172033;
+            --muted: #718096;
+
+            --primary: #4f46e5;
+            --secondary: #2563eb;
+            --pink: #ec4899;
+
+            --input: rgba(241,245,249,.95);
+
+            --blob1: #818cf8;
+            --blob2: #60a5fa;
+            --blob3: #f9a8d4;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(
+                    circle at 15% 25%,
+                    color-mix(in srgb, var(--blob1) 32%, transparent),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 85% 25%,
+                    color-mix(in srgb, var(--blob2) 32%, transparent),
+                    transparent 34%
+                ),
+                radial-gradient(
+                    circle at 55% 85%,
+                    color-mix(in srgb, var(--blob3) 28%, transparent),
+                    transparent 38%
+                ),
+                linear-gradient(135deg, var(--bg), var(--bg2));
+
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        .page {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: fixed;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: .25;
+            pointer-events: none;
+        }
+
+        .glow.one {
+            background: var(--blob1);
+            left: -180px;
+            top: 5%;
+        }
+
+        .glow.two {
+            background: var(--blob2);
+            right: -180px;
+            top: 10%;
+        }
+
+        .glow.three {
+            background: var(--blob3);
+            left: 35%;
+            bottom: -230px;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 22px;
+            right: 28px;
+            z-index: 20;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 10px 12px;
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            background: var(--panel2);
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.18);
+        }
+
+        .theme-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            color: var(--muted);
+            margin-right: 2px;
+        }
+
+        .theme-btn {
+            width: 30px;
+            height: 30px;
+
+            border: 0;
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+
+            transition: .2s;
+        }
+
+        .theme-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .theme-btn.active {
+            outline: 2px solid var(--text);
+            outline-offset: 2px;
+        }
+
+        .purple-btn {
+            background: linear-gradient(135deg,#8b5cf6,#4f46e5);
+        }
+
+        .emerald-btn {
+            background: linear-gradient(135deg,#10b981,#059669);
+        }
+
+        .sunset-btn {
+            background: linear-gradient(135deg,#ff7a18,#ec4899);
+        }
+
+        .light-btn {
+            background: #edf2f7;
+            color: #1e293b;
+        }
+
+        .login-layout {
+            min-height: 100vh;
+            width: 100%;
+
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding: 80px 8vw 80px 9vw;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 35px;
+        }
+
+        .brand-icon {
+            width: 54px;
+            height: 54px;
+
+            border-radius: 17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--secondary)
+            );
+
+            box-shadow: 0 12px 35px var(--shadow);
+
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: .04em;
+        }
+
+        .brand-sub {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: .25em;
+            margin-top: 2px;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+
+            font-size: clamp(48px, 6vw, 86px);
+            line-height: .98;
+
+            letter-spacing: -.055em;
+
+            margin-bottom: 28px;
+        }
+
+        .hero h1 .white {
+            color: var(--text);
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(
+                90deg,
+                var(--primary),
+                var(--pink)
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 570px;
+
+            color: var(--muted);
+
+            font-size: 17px;
+            line-height: 1.8;
+
+            margin-bottom: 38px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+
+            max-width: 610px;
+        }
+
+        .feature {
+            padding: 20px;
+
+            border-radius: 18px;
+
+            border: 1px solid var(--border);
+            background: var(--panel);
+
+            backdrop-filter: blur(18px);
+
+            transition: .25s;
+        }
+
+        .feature:hover {
+            transform: translateY(-3px);
+            background: var(--panel2);
+        }
+
+        .feature-icon {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: color-mix(
+                in srgb,
+                var(--primary) 18%,
+                transparent
+            );
+
+            color: var(--primary);
+
+            margin-bottom: 12px;
+
+            font-weight: 800;
+        }
+
+        .feature strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .feature span {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .login-side {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 100px 8vw 60px 4vw;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 500px;
+
+            padding: 36px;
+
+            border-radius: 28px;
+
+            border: 1px solid var(--border);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--panel2),
+                    var(--panel)
+                );
+
+            backdrop-filter: blur(28px);
+
+            box-shadow:
+                0 30px 100px rgba(0,0,0,.30),
+                0 0 50px var(--shadow);
+        }
+
+        .login-card h2 {
+            font-family: 'Outfit', sans-serif;
+
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .role-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 12px;
+        }
+
+        .role-title strong {
+            font-size: 12px;
+        }
+
+        .role-title span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .roles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+        .role-card {
+            border: 1px solid var(--border);
+            background: var(--input);
+
+            border-radius: 15px;
+
+            padding: 15px 10px;
+
+            color: var(--text);
+
+            cursor: pointer;
+
+            text-align: left;
+
+            transition: .2s;
+        }
+
+        .role-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .role-card.selected {
+            border-color: var(--primary);
+
+            background:
+                color-mix(
+                    in srgb,
+                    var(--primary) 15%,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 25px var(--shadow);
+        }
+
+        .role-icon {
+            width: 30px;
+            height: 30px;
+
+            border-radius: 9px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                color-mix(
+                    in srgb,
+                    var(--primary) 18%,
+                    transparent
+                );
+
+            color: var(--primary);
+
+            margin-bottom: 9px;
+
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .role-name {
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .role-help {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        .field label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input {
+            width: 100%;
+
+            padding: 15px 16px;
+
+            border-radius: 14px;
+
+            border: 1px solid var(--border);
+
+            background: var(--input);
+
+            color: var(--text);
+
+            outline: none;
+
+            font-family: inherit;
+            font-size: 13px;
+
+            transition: .2s;
+        }
+
+        .input:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px
+                color-mix(
+                    in srgb,
+                    var(--primary) 15%,
+                    transparent
+                );
+        }
+
+        .input::placeholder {
+            color: var(--muted);
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: 0;
+            background: transparent;
+
+            color: var(--muted);
+
+            cursor: pointer;
+
+            font-size: 13px;
+        }
+
+        .remember-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 20px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .remember-row input {
+            accent-color: var(--primary);
+        }
+
+        .login-button {
+            width: 100%;
+
+            padding: 16px;
+
+            border: 0;
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--pink)
+                );
+
+            box-shadow:
+                0 12px 30px var(--shadow);
+
+            transition: .2s;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 18px 40px var(--shadow);
+        }
+
+        .validation {
+            padding: 12px 14px;
+
+            border-radius: 12px;
+
+            background: rgba(239,68,68,.10);
+
+            border: 1px solid rgba(239,68,68,.25);
+
+            color: #fca5a5;
+
+            font-size: 11px;
+
+            margin-bottom: 18px;
+        }
+
+        .login-footer {
+            margin-top: 24px;
+
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .role-hidden {
+            display: none;
+        }
+
+        @@media (max-width: 1000px) {
+
+            .login-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 120px 30px 40px;
+            }
+
+            .hero h1 {
+                font-size: 54px;
+            }
+
+            .login-side {
+                min-height: auto;
+                padding: 30px;
+                padding-bottom: 80px;
+            }
+
+            .login-card {
+                max-width: 650px;
+            }
+        }
+
+        @@media (max-width: 600px) {
+
+            .topbar {
+                top: 12px;
+                right: 12px;
+            }
+
+            .hero {
+                padding: 95px 20px 30px;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-side {
+                padding: 20px;
+            }
+
+            .login-card {
+                padding: 25px 20px;
+                border-radius: 22px;
+            }
+
+            .roles {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+<body data-theme="purple">
+
+    <div class="page">
+
+        <div class="glow one"></div>
+        <div class="glow two"></div>
+        <div class="glow three"></div>
+
+        <!-- THEME SWITCHER -->
+
+        <div class="topbar">
+
+            <span class="theme-label">THEME</span>
+
+            <button
+                type="button"
+                class="theme-btn purple-btn active"
+                data-theme="purple">
+                P
+            </button>
+
+            <button
+                type="button"
+                class="theme-btn emerald-btn"
+                data-theme="emerald">
+                E
+            </button>
+
+            <button
+                type="button"
+                class="theme-btn sunset-btn"
+                data-theme="sunset">
+                S
+            </button>
+
+            <button
+                type="button"
+                class="theme-btn light-btn"
+                data-theme="light">
+                L
+            </button>
+
+        </div>
+
+        <main class="login-layout">
+
+            <!-- LEFT SIDE -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <div class="brand">
+
+                        <div class="brand-icon">
+                            A
+                        </div>
+
+                        <div>
+                            <div class="brand-name">
+                                ACXIOM
+                            </div>
+
+                            <span class="brand-sub">
+                                CRM
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <h1>
+                        <span class="white">
+                            Manage<br />
+                            relationships.
+                        </span>
+                        <br />
+                        <span class="gradient">
+                            Grow smarter.
+                        </span>
+                    </h1>
+
+                    <p class="hero-description">
+                        A modern customer relationship management
+                        workspace for customers, leads, opportunities,
+                        follow-ups, activities and reports.
+                    </p>
+
+                    <div class="feature-grid">
+
+                        <div class="feature">
+                            <div class="feature-icon">◉</div>
+
+                            <strong>Customers</strong>
+
+                            <span>
+                                Manage customer records and
+                                relationships.
+                            </span>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">↗</div>
+
+                            <strong>Leads</strong>
+
+                            <span>
+                                Track prospects and sales progress.
+                            </span>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">$</div>
+
+                            <strong>Opportunities</strong>
+
+                            <span>
+                                Manage your sales pipeline.
+                            </span>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">✓</div>
+
+                            <strong>Activities</strong>
+
+                            <span>
+                                Track calls, meetings and follow-ups.
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- LOGIN SIDE -->
+
+            <section class="login-side">
+
+                <div class="login-card">
+
+                    <h2>
+                        Welcome back
+                    </h2>
+
+                    <p class="login-subtitle">
+                        Select your role to continue to the
+                        Acxiom CRM workspace.
+                    </p>
+
+                    <div class="role-title">
+
+                        <strong>
+                            Select account role
+                        </strong>
+
+                        <span>
+                            Click a role to autofill
+                        </span>
+
+                    </div>
+
+                    <div class="roles">
+
+                        <button
+                            type="button"
+                            class="role-card"
+                            data-role="Admin"
+                            data-email="admin@acxiomcrm.com"
+                            data-password="Admin@123">
+
+                            <div class="role-icon">
+                                ♛
+                            </div>
+
+                            <div class="role-name">
+                                Admin
+                            </div>
+
+                            <span class="role-help">
+                                Click to fill account
+                            </span>
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="role-card"
+                            data-role="Manager">
+
+                            <div class="role-icon">
+                                ◆
+                            </div>
+
+                            <div class="role-name">
+                                Manager
+                            </div>
+
+                            <span class="role-help">
+                                Enter account details
+                            </span>
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="role-card"
+                            data-role="SalesExecutive">
+
+                            <div class="role-icon">
+                                ↗
+                            </div>
+
+                            <div class="role-name">
+                                Sales Executive
+                            </div>
+
+                            <span class="role-help">
+                                Enter account details
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                    <form
+                        asp-controller="Account"
+                        asp-action="Login"
+                        method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input
+                            type="hidden"
+                            name="returnUrl"
+                            value="@ViewData["ReturnUrl"]" />
+
+                        <input
+                            type="hidden"
+                            asp-for="SelectedRole"
+                            id="selectedRole" />
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="validation">
+                                @Html.ValidationSummary(
+                                    false,
+                                    "",
+                                    new { })
+                            </div>
+                        }
+
+                        <div class="field">
+
+                            <label>
+                                Email / Account
+                            </label>
+
+                            <input
+                                asp-for="Email"
+                                id="email"
+                                class="input"
+                                type="email"
+                                autocomplete="username"
+                                placeholder="Enter your email" />
+
+                        </div>
+
+                        <div class="field">
+
+                            <label>
+                                Password
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <input
+                                    asp-for="Password"
+                                    id="password"
+                                    class="input"
+                                    type="password"
+                                    autocomplete="current-password"
+                                    placeholder="Enter your password" />
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    id="togglePassword">
+                                    ◉
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="remember-row">
+
+                            <input
+                                asp-for="RememberMe"
+                                id="rememberMe" />
+
+                            <label for="rememberMe">
+                                Remember me
+                            </label>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="login-button">
+
+                            Sign In →
+                        </button>
+
+                    </form>
+
+                    <div class="login-footer">
+                        AcxiomCRM · Customer Relationship Management
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+
+        // --------------------------------------------------
+        // THEME
+        // --------------------------------------------------
+
+        const savedTheme =
+            localStorage.getItem("acxiom-login-theme") || "purple";
+
+        document.body.setAttribute("data-theme", savedTheme);
+
+        document.querySelectorAll(".theme-btn").forEach(button => {
+
+            if (button.dataset.theme === savedTheme) {
+                button.classList.add("active");
+            } else {
+                button.classList.remove("active");
+            }
+
+            button.addEventListener("click", function () {
+
+                const theme = this.dataset.theme;
+
+                document.body.setAttribute(
+                    "data-theme",
+                    theme
+                );
+
+                localStorage.setItem(
+                    "acxiom-login-theme",
+                    theme
+                );
+
+                document.querySelectorAll(".theme-btn")
+                    .forEach(btn => btn.classList.remove("active"));
+
+                this.classList.add("active");
+            });
+
+        });
+
+        // --------------------------------------------------
+        // ROLE CARDS
+        // --------------------------------------------------
+
+        document.querySelectorAll(".role-card")
+            .forEach(card => {
+
+                card.addEventListener("click", function () {
+
+                    document.querySelectorAll(".role-card")
+                        .forEach(c => c.classList.remove("selected"));
+
+                    this.classList.add("selected");
+
+                    const role =
+                        this.dataset.role;
+
+                    const email =
+                        this.dataset.email;
+
+                    const password =
+                        this.dataset.password;
+
+                    document.getElementById(
+                        "selectedRole"
+                    ).value = role || "";
+
+                    if (email) {
+                        document.getElementById(
+                            "email"
+                        ).value = email;
+                    }
+
+                    if (password) {
+                        document.getElementById(
+                            "password"
+                        ).value = password;
+                    }
+
+                });
+
+            });
+
+        // --------------------------------------------------
+        // PASSWORD SHOW / HIDE
+        // --------------------------------------------------
+
+        const password =
+            document.getElementById("password");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+        if (password && togglePassword) {
+
+            togglePassword.addEventListener(
+                "click",
+                function () {
+
+                    if (password.type === "password") {
+
+                        password.type = "text";
+                        this.textContent = "◉";
+
+                    } else {
+
+                        password.type = "password";
+                        this.textContent = "◉";
+
+                    }
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+﻿@model AcxiomCRM.Models.Opportunity
+
+@{
+    ViewData["Title"] = "Delete Opportunity";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-danger">
+
+        <div class="card-header bg-danger text-white">
+
+            <h4 class="mb-0">
+                Delete Opportunity
+            </h4>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <div class="alert alert-warning">
+
+                <h5>
+                    Are you sure you want to delete this opportunity?
+                </h5>
+
+                <hr />
+
+                <strong>
+                    @Model.OpportunityName
+                </strong>
+
+                <br />
+
+                Customer:
+                @(Model.Customer?.FullName ?? "N/A")
+
+                <br />
+
+                Amount:
+                ₹@Model.Amount.ToString("N2")
+
+            </div>
+
+
+            <form method="post"
+                  action="/Opportunities/Delete">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="id"
+                       value="@Model.Id" />
+
+                <button type="submit"
+                        class="crm-action crm-delete">
+                    Yes, Delete
+                </button>
+
+                <a href="/Opportunities"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+

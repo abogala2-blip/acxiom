@@ -1,0 +1,249 @@
+﻿@model AcxiomCRM.Models.Opportunity
+
+@{
+    ViewData["Title"] = "Create Opportunity";
+}
+
+<div class="container mt-4">
+
+    <h2 class="fw-bold">Create Opportunity</h2>
+
+    <p class="text-muted">
+        Add a new sales opportunity
+    </p>
+
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <form method="post"
+                  action="/Opportunities/Create">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+
+                <div class="row g-3">
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Opportunity Name
+                        </label>
+
+                        <input asp-for="OpportunityName"
+                               class="form-control"
+                               placeholder="Enter opportunity name" />
+
+                        <span asp-validation-for="OpportunityName"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Customer
+                        </label>
+
+                        <select asp-for="CustomerId"
+                                class="form-select">
+
+                            <option value="">
+                                Select Customer
+                            </option>
+
+                            @if (ViewBag.Customers != null)
+                            {
+                                foreach (var customer in ViewBag.Customers)
+                                {
+                                    <option value="@customer.Id">
+                                        @customer.FullName
+                                    </option>
+                                }
+                            }
+
+                        </select>
+
+                        <span asp-validation-for="CustomerId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Amount
+                        </label>
+
+                        <input asp-for="Amount"
+                               type="number"
+                               step="0.01"
+                               class="form-control"
+                               placeholder="Enter amount" />
+
+                        <span asp-validation-for="Amount"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Stage
+                        </label>
+
+                        <select asp-for="Stage"
+                                class="form-select">
+
+                            <option value="Qualification">
+                                Qualification
+                            </option>
+
+                            <option value="Proposal">
+                                Proposal
+                            </option>
+
+                            <option value="Negotiation">
+                                Negotiation
+                            </option>
+
+                            <option value="Closed Won">
+                                Closed Won
+                            </option>
+
+                            <option value="Closed Lost">
+                                Closed Lost
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Probability (%)
+                        </label>
+
+                        <input asp-for="Probability"
+                               type="number"
+                               min="0"
+                               max="100"
+                               class="form-control" />
+
+                        <span asp-validation-for="Probability"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Expected Close Date
+                        </label>
+
+                        <input asp-for="ExpectedCloseDate"
+                               type="date"
+                               class="form-control" />
+
+                        <span asp-validation-for="ExpectedCloseDate"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Status
+                        </label>
+
+                        <select asp-for="Status"
+                                class="form-select">
+
+                            <option value="Open">
+                                Open
+                            </option>
+
+                            <option value="Closed">
+                                Closed
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Assigned To
+                        </label>
+
+                        <input asp-for="AssignedTo"
+                               class="form-control"
+                               placeholder="Sales executive" />
+
+                    </div>
+
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            Notes
+                        </label>
+
+                        <textarea asp-for="Notes"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="Enter notes"></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Create Opportunity
+                    </button>
+
+                    <a href="/Opportunities"
+                       class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

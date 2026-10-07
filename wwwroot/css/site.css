@@ -1,0 +1,495 @@
+﻿/* ==========================================================
+   ACXIOMCRM MODERN CRM THEME
+   ========================================================== */
+
+:root {
+    --crm-primary: #253D58;
+    --crm-primary-dark: #1c2f45;
+    --crm-primary-light: #eaf0f6;
+
+    --crm-blue: #0dcaf0;
+    --crm-yellow: #ffc107;
+    --crm-red: #dc3545;
+    --crm-green: #198754;
+
+    --crm-bg: #f5f7fa;
+    --crm-card: #ffffff;
+    --crm-border: #e2e8f0;
+    --crm-text: #1f2937;
+    --crm-muted: #6b7280;
+
+    --crm-shadow: 0 4px 18px rgba(37, 61, 88, 0.08);
+    --crm-radius: 10px;
+}
+
+/* ----------------------------------------------------------
+   GLOBAL
+   ---------------------------------------------------------- */
+
+html {
+    font-size: 14px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--crm-bg);
+    color: var(--crm-text);
+    font-family:
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1400px;
+}
+
+/* ----------------------------------------------------------
+   NAVBAR
+   ---------------------------------------------------------- */
+
+.crm-navbar {
+    background: var(--crm-primary) !important;
+    min-height: 68px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+
+.crm-brand {
+    color: white !important;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.crm-brand-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    margin-right: 9px;
+}
+
+.crm-nav-link {
+    color: rgba(255,255,255,0.85) !important;
+    padding: 10px 13px !important;
+    border-radius: 7px;
+    margin: 0 2px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.crm-nav-link:hover {
+    color: white !important;
+    background: rgba(255,255,255,0.12);
+}
+
+.crm-nav-link.active {
+    background: rgba(255,255,255,0.15);
+    color: white !important;
+}
+
+.crm-user {
+    color: white !important;
+    font-weight: 500;
+}
+
+.crm-logout {
+    color: white !important;
+    border: 1px solid rgba(255,255,255,0.35) !important;
+    border-radius: 7px;
+    padding: 7px 14px !important;
+    margin-left: 8px;
+}
+
+.crm-logout:hover {
+    background: rgba(255,255,255,0.12);
+}
+
+/* ----------------------------------------------------------
+   PAGE HEADER
+   ---------------------------------------------------------- */
+
+.crm-page-header {
+    background: white;
+    border-bottom: 1px solid var(--crm-border);
+    padding: 22px 0;
+    margin-bottom: 24px;
+}
+
+.crm-page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--crm-primary);
+    margin: 0;
+}
+
+.crm-page-subtitle {
+    color: var(--crm-muted);
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+/* ----------------------------------------------------------
+   CARDS
+   ---------------------------------------------------------- */
+
+.crm-card {
+    background: var(--crm-card);
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    box-shadow: var(--crm-shadow);
+    margin-bottom: 22px;
+}
+
+.crm-card-header {
+    padding: 17px 20px;
+    border-bottom: 1px solid var(--crm-border);
+    font-weight: 700;
+    color: var(--crm-primary);
+    background: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.crm-card-body {
+    padding: 20px;
+}
+
+/* ----------------------------------------------------------
+   KPI CARDS
+   ---------------------------------------------------------- */
+
+.crm-kpi {
+    background: white;
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    padding: 20px;
+    box-shadow: var(--crm-shadow);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.crm-kpi::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--crm-primary);
+}
+
+.crm-kpi-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 9px;
+    background: var(--crm-primary-light);
+    color: var(--crm-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
+.crm-kpi-label {
+    color: var(--crm-muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+
+.crm-kpi-value {
+    color: var(--crm-primary);
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* ----------------------------------------------------------
+   TABLES
+   ---------------------------------------------------------- */
+
+.crm-table-wrapper {
+    background: white;
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    box-shadow: var(--crm-shadow);
+    overflow-x: auto;
+}
+
+.crm-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.crm-table thead th {
+    background: var(--crm-primary);
+    color: white;
+    border: none;
+    padding: 14px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.crm-table tbody td {
+    padding: 13px 12px;
+    border-bottom: 1px solid var(--crm-border);
+    vertical-align: middle;
+}
+
+.crm-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.crm-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ----------------------------------------------------------
+   ACTION BUTTONS
+   ---------------------------------------------------------- */
+
+.crm-action {
+    display: inline-block;
+    padding: 7px 13px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    margin-right: 4px;
+    transition: 0.15s ease;
+}
+
+.crm-action:hover {
+    transform: translateY(-1px);
+    opacity: .92;
+}
+
+.crm-view {
+    background: #0dcaf0;
+    color: #082f49;
+}
+
+.crm-edit {
+    background: #ffc107;
+    color: #212529;
+}
+
+.crm-delete {
+    background: #dc3545;
+    color: white;
+}
+
+.crm-primary-btn {
+    background: var(--crm-primary);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 16px;
+    font-weight: 600;
+}
+
+.crm-primary-btn:hover {
+    background: var(--crm-primary-dark);
+    color: white;
+}
+
+.crm-secondary-btn {
+    background: #eef2f7;
+    color: var(--crm-primary);
+    border: 1px solid var(--crm-border);
+    border-radius: 7px;
+    padding: 9px 16px;
+    font-weight: 600;
+}
+
+.crm-secondary-btn:hover {
+    background: #e2e8f0;
+}
+
+/* ----------------------------------------------------------
+   STATUS BADGES
+   ---------------------------------------------------------- */
+
+.crm-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.crm-status-active,
+.crm-status-open,
+.crm-status-won,
+.crm-status-completed {
+    background: #d1e7dd;
+    color: #146c43;
+}
+
+.crm-status-inactive,
+.crm-status-lost {
+    background: #f8d7da;
+    color: #b02a37;
+}
+
+.crm-status-pending,
+.crm-status-new {
+    background: #fff3cd;
+    color: #997404;
+}
+
+/* ----------------------------------------------------------
+   FORMS
+   ---------------------------------------------------------- */
+
+.crm-form-card {
+    max-width: 900px;
+    margin: 30px auto;
+    background: white;
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    box-shadow: var(--crm-shadow);
+}
+
+.crm-form-header {
+    background: var(--crm-primary);
+    color: white;
+    padding: 18px 22px;
+    border-radius: 10px 10px 0 0;
+}
+
+.crm-form-header h2,
+.crm-form-header h3 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.crm-form-body {
+    padding: 25px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    min-height: 42px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--crm-primary);
+    box-shadow: 0 0 0 0.15rem rgba(37,61,88,.15);
+}
+
+/* ----------------------------------------------------------
+   SEARCH / FILTER BAR
+   ---------------------------------------------------------- */
+
+.crm-filter {
+    background: white;
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    box-shadow: var(--crm-shadow);
+    padding: 15px;
+    margin-bottom: 18px;
+}
+
+.crm-filter .form-control,
+.crm-filter .form-select {
+    min-height: 40px;
+}
+
+/* ----------------------------------------------------------
+   ALERTS
+   ---------------------------------------------------------- */
+
+.alert {
+    border-radius: 8px;
+}
+
+/* ----------------------------------------------------------
+   PAGINATION
+   ---------------------------------------------------------- */
+
+.pagination .page-link {
+    color: var(--crm-primary);
+    border-color: var(--crm-border);
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--crm-primary);
+    border-color: var(--crm-primary);
+}
+
+/* ----------------------------------------------------------
+   FOOTER
+   ---------------------------------------------------------- */
+
+.crm-footer {
+    margin-top: 50px;
+    background: var(--crm-primary);
+    color: rgba(255,255,255,.8);
+    padding: 20px 0;
+}
+
+.crm-footer a {
+    color: white;
+}
+
+/* ----------------------------------------------------------
+   MOBILE
+   ---------------------------------------------------------- */
+
+@media (max-width: 991px) {
+
+    .crm-navbar {
+        padding: 8px 0;
+    }
+
+    .crm-nav-link {
+        margin: 2px 0;
+    }
+
+    .crm-user {
+        display: block;
+        margin-top: 10px;
+    }
+
+    .crm-table {
+        min-width: 900px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .crm-page-title {
+        font-size: 22px;
+    }
+
+    .crm-kpi-value {
+        font-size: 25px;
+    }
+
+    .crm-form-body {
+        padding: 18px;
+    }
+}

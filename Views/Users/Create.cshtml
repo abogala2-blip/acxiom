@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="crm-page-header">
+
+    <div>
+        <div class="eyebrow">ACXIOM CRM WORKSPACE</div>
+        <h1>Create User</h1>
+        <p>Create an account and select the access role.</p>
+    </div>
+
+</div>
+
+@if (TempData["UserError"] != null)
+{
+    <div class="crm-alert danger">
+        @TempData["UserError"]
+    </div>
+}
+
+<div class="crm-card crm-form-card">
+
+    <form asp-action="Create"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="crm-field">
+            <label>Full Name</label>
+
+            <input name="fullName"
+                   class="crm-input"
+                   placeholder="Enter full name"
+                   required />
+        </div>
+
+        <div class="crm-field">
+            <label>Email</label>
+
+            <input name="email"
+                   type="email"
+                   class="crm-input"
+                   placeholder="customer@example.com"
+                   required />
+        </div>
+
+        <div class="crm-field">
+            <label>Password</label>
+
+            <input name="password"
+                   type="password"
+                   class="crm-input"
+                   placeholder="Any non-empty password"
+                   required />
+
+            <small>
+                Any non-empty password is accepted for this
+                assignment/demo configuration.
+            </small>
+        </div>
+
+        <div class="crm-field">
+            <label>Role</label>
+
+            <select name="role"
+                    class="crm-input"
+                    required>
+
+                <option value="">
+                    Select role
+                </option>
+
+                @foreach (var role in (IEnumerable<string>)ViewBag.Roles)
+                {
+                    <option value="@role">
+                        @role
+                    </option>
+                }
+
+            </select>
+        </div>
+
+        <div class="crm-form-actions">
+
+            <button type="submit"
+                    class="crm-btn primary">
+                Create Account
+            </button>
+
+            <a asp-action="Index"
+               class="crm-btn ghost">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>

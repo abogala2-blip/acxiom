@@ -1,0 +1,82 @@
+﻿@model AcxiomCRM.Models.Lead
+
+@{
+    ViewData["Title"] = "Delete Lead";
+}
+
+<div>
+
+    <div class="crm-topbar">
+
+        <div>
+            <h1 style="margin:0;font-family:'Outfit';font-size:42px;">
+                Delete Lead
+            </h1>
+
+            <div class="crm-muted">
+                Confirm lead deletion.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="crm-card"
+         style="max-width:700px;">
+
+        <div style="
+            font-size:50px;
+            color:var(--danger);
+            margin-bottom:15px;">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+
+        <h2>
+            Are you sure?
+        </h2>
+
+        <p class="crm-muted">
+            You are about to delete:
+        </p>
+
+        <div style="
+            padding:16px;
+            border:1px solid var(--border);
+            border-radius:14px;
+            background:var(--card);">
+
+            <strong>@Model.LeadName</strong>
+
+            <div class="crm-muted">
+                @Model.Email
+            </div>
+
+        </div>
+
+        <form asp-action="Delete"
+              method="post"
+              style="margin-top:25px;display:flex;gap:10px;">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   name="id"
+                   value="@Model.Id" />
+
+            <button type="submit"
+                    class="crm-btn crm-btn-danger">
+
+                <i class="bi bi-trash"></i>
+                Delete Lead
+
+            </button>
+
+            <a asp-action="Index"
+               class="crm-btn crm-btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

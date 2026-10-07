@@ -1,0 +1,100 @@
+﻿{
+    "customers":  [
+                      {
+                          "id":  1,
+                          "name":  "Priya Rao",
+                          "email":  "priya@example.com",
+                          "phone":  "+91 98765 11111",
+                          "company":  "Nimbus Tech",
+                          "city":  "Vijayawada",
+                          "status":  "Active",
+                          "owner":  "sales1",
+                          "revenue":  120000,
+                          "taxId":  "AAAPR1234A",
+                          "notes":  "Wants renewal in Q4"
+                      },
+                      {
+                          "id":  2,
+                          "name":  "Rahul Verma",
+                          "email":  "rahul@example.com",
+                          "phone":  "+91 98765 22222",
+                          "company":  "BlueOrbit",
+                          "city":  "Hyderabad",
+                          "status":  "Lead",
+                          "owner":  "sales2",
+                          "revenue":  45000,
+                          "taxId":  "BBBRV5678B",
+                          "notes":  "Asked for demo"
+                      },
+                      {
+                          "id":  3,
+                          "name":  "Anita Das",
+                          "email":  "anita@example.com",
+                          "phone":  "+91 98765 33333",
+                          "company":  "GreenLeaf",
+                          "city":  "Chennai",
+                          "status":  "Active",
+                          "owner":  "sales1",
+                          "revenue":  230000,
+                          "taxId":  "CCCAD9012C",
+                          "notes":  "Premium plan"
+                      },
+                      {
+                          "id":  4,
+                          "name":  "Kiran Patel",
+                          "email":  "kiran@example.com",
+                          "phone":  "+91 98765 44444",
+                          "company":  "Zenith Labs",
+                          "city":  "Mumbai",
+                          "status":  "Churned",
+                          "owner":  "sales2",
+                          "revenue":  0,
+                          "taxId":  "DDDKP3456D",
+                          "notes":  "Left in August"
+                      }
+                  ],
+    "users":  [
+                  {
+                      "username":  "admin",
+                      "name":  "Alex Admin",
+                      "email":  "admin@skillpath.local",
+                      "role":  "Admin"
+                  },
+                  {
+                      "username":  "manager",
+                      "name":  "Maya Manager",
+                      "email":  "manager@skillpath.local",
+                      "role":  "Manager"
+                  },
+                  {
+                      "username":  "sales1",
+                      "name":  "Sam Sales",
+                      "email":  "sales1@skillpath.local",
+                      "role":  "Sales"
+                  },
+                  {
+                      "username":  "sales2",
+                      "name":  "Sia Sales",
+                      "email":  "sales2@skillpath.local",
+                      "role":  "Sales"
+                  },
+                  {
+                      "username":  "support",
+                      "name":  "Sunil Support",
+                      "email":  "support@skillpath.local",
+                      "role":  "Support"
+                  },
+                  {
+                      "username":  "priya",
+                      "name":  "Priya Rao",
+                      "email":  "priya@example.com",
+                      "role":  "Customer"
+                  },
+                  {
+                      "username":  "rahul",
+                      "name":  "Rahul Verma",
+                      "email":  "rahul@example.com",
+                      "role":  "Customer"
+                  }
+              ]
+}

@@ -1,0 +1,219 @@
+﻿@model IEnumerable<AcxiomCRM.Models.Activity>
+
+@{
+    ViewData["Title"] = "Activities";
+}
+
+<div class="crm-page">
+
+    <div class="crm-page-header">
+
+        <div>
+
+            <div class="crm-eyebrow">
+                CRM WORKSPACE
+            </div>
+
+            <h1 class="crm-page-title">
+                Activities
+            </h1>
+
+            <div class="crm-page-subtitle">
+                Track calls, meetings, tasks and customer interactions.
+            </div>
+
+        </div>
+
+        <div>
+            <a asp-action="Create"
+               class="btn btn-primary px-4 py-2">
+                + Add Activity
+            </a>
+        </div>
+
+    </div>
+
+    <div class="crm-filter">
+
+        <form asp-action="Index"
+              method="get"
+              style="display:flex;flex-wrap:wrap;gap:10px;width:100%;">
+
+            <input type="text"
+                   name="search"
+                   class="form-control"
+                   placeholder="Search activities..."
+                   value="@Context.Request.Query["search"]" />
+
+            <select name="status"
+                    class="form-select"
+                    style="min-width:160px;">
+
+                <option value="">
+                    All Statuses
+                </option>
+
+                <option value="Planned">
+                    Planned
+                </option>
+
+                <option value="Completed">
+                    Completed
+                </option>
+
+                <option value="Cancelled">
+                    Cancelled
+                </option>
+
+            </select>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Search
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Clear
+            </a>
+
+        </form>
+
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="crm-card crm-list-card">
+
+            <div class="crm-list-card-header">
+
+                <h3>
+                    Activity Timeline
+                </h3>
+
+                <span class="badge bg-success">
+                    @Model.Count() Activities
+                </span>
+
+            </div>
+
+            <div class="crm-list-card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Subject</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        @item.Subject
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    @item.ActivityType
+                                </td>
+
+                                <td>
+                                    @item.ActivityDate.ToString("dd MMM yyyy, hh:mm tt")
+                                </td>
+
+                                <td>
+
+                                    <span class="badge
+                                        @(item.Status == "Completed"
+                                            ? "bg-success"
+                                            : item.Status == "Cancelled"
+                                                ? "bg-danger"
+                                                : "bg-warning")">
+
+                                        @item.Status
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    @(string.IsNullOrWhiteSpace(item.Description)
+                                        ? "-"
+                                        : item.Description)
+                                </td>
+
+                                <td class="text-nowrap">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-info btn-sm">
+                                        View
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="crm-empty">
+
+            <div class="crm-empty-icon">
+                ✓
+            </div>
+
+            <h3>
+                No activities found
+            </h3>
+
+            <p>
+                Add an activity to start tracking customer interactions.
+            </p>
+
+            <a asp-action="Create"
+               class="btn btn-primary mt-2">
+                + Add Activity
+            </a>
+
+        </div>
+    }
+
+</div>

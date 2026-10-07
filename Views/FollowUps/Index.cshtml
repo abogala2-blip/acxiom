@@ -1,0 +1,230 @@
+﻿@model IEnumerable<AcxiomCRM.Models.FollowUp>
+
+@{
+    ViewData["Title"] = "Follow-Ups";
+}
+
+<div class="crm-page">
+
+    <div class="crm-page-header">
+
+        <div>
+
+            <div class="crm-eyebrow">
+                CRM WORKSPACE
+            </div>
+
+            <h1 class="crm-page-title">
+                Follow-Ups
+            </h1>
+
+            <div class="crm-page-subtitle">
+                Stay on top of customer conversations and upcoming tasks.
+            </div>
+
+        </div>
+
+        <div>
+            <a asp-action="Create"
+               class="btn btn-primary px-4 py-2">
+                + Add Follow-Up
+            </a>
+        </div>
+
+    </div>
+
+    <div class="crm-filter">
+
+        <form asp-action="Index"
+              method="get"
+              style="display:flex;flex-wrap:wrap;gap:10px;width:100%;">
+
+            <input type="text"
+                   name="search"
+                   class="form-control"
+                   placeholder="Search follow-ups..."
+                   value="@Context.Request.Query["search"]" />
+
+            <select name="status"
+                    class="form-select"
+                    style="min-width:160px;">
+
+                <option value="">
+                    All Statuses
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="Completed">
+                    Completed
+                </option>
+
+                <option value="Cancelled">
+                    Cancelled
+                </option>
+
+            </select>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Search
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Clear
+            </a>
+
+        </form>
+
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="crm-card crm-list-card">
+
+            <div class="crm-list-card-header">
+
+                <h3>
+                    Follow-Up Schedule
+                </h3>
+
+                <span class="badge bg-success">
+                    @Model.Count() Follow-Ups
+                </span>
+
+            </div>
+
+            <div class="crm-list-card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        @item.Subject
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    @item.FollowUpDate.ToString("dd MMM yyyy, hh:mm tt")
+                                </td>
+
+                                <td>
+
+                                    <span class="badge
+                                        @(item.Priority == "High"
+                                            ? "bg-danger"
+                                            : item.Priority == "Low"
+                                                ? "bg-success"
+                                                : "bg-warning")">
+
+                                        @item.Priority
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <span class="badge
+                                        @(item.Status == "Completed"
+                                            ? "bg-success"
+                                            : item.Status == "Cancelled"
+                                                ? "bg-danger"
+                                                : "bg-warning")">
+
+                                        @item.Status
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    @(string.IsNullOrWhiteSpace(item.Notes)
+                                        ? "-"
+                                        : item.Notes)
+                                </td>
+
+                                <td class="text-nowrap">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-info btn-sm">
+                                        View
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="crm-empty">
+
+            <div class="crm-empty-icon">
+                ◷
+            </div>
+
+            <h3>
+                No follow-ups found
+            </h3>
+
+            <p>
+                Add a follow-up to keep track of your customer interactions.
+            </p>
+
+            <a asp-action="Create"
+               class="btn btn-primary mt-2">
+                + Add Follow-Up
+            </a>
+
+        </div>
+    }
+
+</div>

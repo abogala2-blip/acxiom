@@ -1,0 +1,230 @@
+﻿@model IEnumerable<AcxiomCRM.Models.Lead>
+
+@{
+    ViewData["Title"] = "Leads";
+}
+
+<div>
+
+    <div class="crm-topbar">
+
+        <div>
+            <h1 style="margin:0;font-family:'Outfit';font-size:42px;">
+                Leads
+            </h1>
+
+            <div class="crm-muted" style="margin-top:7px;">
+                Manage prospects, track progress and convert leads.
+            </div>
+        </div>
+
+        <a asp-controller="Leads"
+           asp-action="Create"
+           class="crm-btn crm-btn-primary">
+
+            <i class="bi bi-plus-lg"></i>
+            Add Lead
+
+        </a>
+
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="crm-card"
+             style="border-color:rgba(16,185,129,.4);color:#6ee7b7;">
+
+            <i class="bi bi-check-circle-fill"></i>
+
+            @TempData["SuccessMessage"]
+
+        </div>
+    }
+
+    <div class="crm-card">
+
+        <h3>
+            Find and filter leads
+        </h3>
+
+        <form asp-controller="Leads"
+              asp-action="Index"
+              method="get"
+              class="crm-search-card">
+
+            <input class="crm-input"
+                   type="text"
+                   name="search"
+                   value="@ViewBag.Search"
+                   placeholder="Search lead name, email or company..." />
+
+            <select class="crm-select"
+                    name="status">
+
+                <option value="All">All Statuses</option>
+
+                <option value="New">New</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Qualified">Qualified</option>
+                <option value="Converted">Converted</option>
+                <option value="Lost">Lost</option>
+
+            </select>
+
+            <button type="submit"
+                    class="crm-btn crm-btn-primary">
+
+                <i class="bi bi-search"></i>
+                Search
+
+            </button>
+
+            <a asp-controller="Leads"
+               asp-action="Index"
+               class="crm-btn crm-btn-secondary">
+
+                Clear
+
+            </a>
+
+        </form>
+
+        <div class="crm-muted" style="margin-top:18px;">
+            Showing <strong>@Model.Count()</strong> lead(s)
+        </div>
+
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="crm-card crm-empty">
+
+            <div class="crm-empty-icon">
+                <i class="bi bi-person-plus"></i>
+            </div>
+
+            <h3>
+                No leads found
+            </h3>
+
+            <p class="crm-muted">
+                Add a lead to start tracking prospects and sales progress.
+            </p>
+
+            <a asp-controller="Leads"
+               asp-action="Create"
+               class="crm-btn crm-btn-primary">
+
+                <i class="bi bi-plus-lg"></i>
+                Add Lead
+
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <div class="crm-table-wrap">
+
+            <table class="crm-table">
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Company</th>
+                        <th>Source</th>
+                        <th>Status</th>
+                        <th>Expected Value</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                @foreach (var lead in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <strong>@lead.LeadName</strong>
+                        </td>
+
+                        <td>
+                            @lead.Email
+                        </td>
+
+                        <td>
+                            @lead.Phone
+                        </td>
+
+                        <td>
+                            @lead.CompanyName
+                        </td>
+
+                        <td>
+                            @lead.Source
+                        </td>
+
+                        <td>
+                            <span style="
+                                display:inline-block;
+                                padding:5px 10px;
+                                border-radius:999px;
+                                background:rgba(99,102,241,.15);
+                                border:1px solid rgba(99,102,241,.25);
+                            ">
+                                @lead.Status
+                            </span>
+                        </td>
+
+                        <td>
+                            ₹@lead.ExpectedValue.ToString("N2")
+                        </td>
+
+                        <td style="white-space:nowrap;">
+
+                            <a asp-controller="Leads"
+                               asp-action="Details"
+                               asp-route-id="@lead.Id"
+                               class="crm-btn crm-btn-secondary"
+                               style="padding:8px 11px;">
+                                <i class="bi bi-eye"></i>
+                            </a>
+
+                            <a asp-controller="Leads"
+                               asp-action="Edit"
+                               asp-route-id="@lead.Id"
+                               class="crm-btn"
+                               style="
+                                    padding:8px 11px;
+                                    background:var(--warning);
+                                    color:#111827;">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-controller="Leads"
+                                   asp-action="Delete"
+                                   asp-route-id="@lead.Id"
+                                   class="crm-btn crm-btn-danger"
+                                   style="padding:8px 11px;">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            }
+
+                        </td>
+
+                    </tr>
+                }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+
+</div>
